@@ -266,7 +266,8 @@ body {
 
 .nav-overlay-inner {
   width: 100%;
-  max-width: 1240px; /* 얇은 회색 선 및 콘텐츠 전체 너비를 더 넓게 확장 */
+  max-width: 1240px;
+  /* 얇은 회색 선 및 콘텐츠 전체 너비를 더 넓게 확장 */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -275,25 +276,32 @@ body {
 }
 
 .nav-top-title {
-  font-size: 36px; /* 글씨 크기 */
-  font-weight: 400; /* 볼드체 제외한 일반 글씨 */
-  color: #4a4a4a; /* 짙은 회색 */
+  font-size: 36px;
+  /* 글씨 크기 */
+  font-weight: 400;
+  /* 볼드체 제외한 일반 글씨 */
+  color: #4a4a4a;
+  /* 짙은 회색 */
   letter-spacing: -0.5px;
   line-height: 1;
   margin: 0 0 16px 0;
   text-transform: uppercase;
   text-align: left;
-  transform: translate(-18px, 0); /* MENU 텍스트 위치 정렬 */
+  transform: translate(-18px, 0);
+  /* MENU 텍스트 위치 정렬 */
 }
 
 .nav-content-block {
-  margin-left: 200px; /* 네비게이션 및 브랜드 항목을 더 옆으로(오른쪽으로) 이동 */
+  margin-left: 200px;
+  /* 네비게이션 및 브랜드 항목을 더 옆으로(오른쪽으로) 이동 */
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 120px; /* 네비게이션과 브랜드 사이 간격 */
+  gap: 120px;
+  /* 네비게이션과 브랜드 사이 간격 */
   text-align: left;
-  margin-bottom: 68px; /* 이전 위치 그대로 */
+  margin-bottom: 68px;
+  /* 이전 위치 그대로 */
 }
 
 .nav-col {
@@ -306,7 +314,8 @@ body {
 .nav-sub-title {
   font-size: 13px;
   font-weight: 700;
-  color: #707070; /* 색깔 조금 더 연하게 */
+  color: #707070;
+  /* 색깔 조금 더 연하게 */
   letter-spacing: 0.8px;
   margin: 0 0 10px 0;
   text-transform: uppercase;
@@ -322,7 +331,8 @@ body {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 3px; /* 줄과 줄 사이 마진 컴팩트 */
+  gap: 3px;
+  /* 줄과 줄 사이 마진 컴팩트 */
   width: 100%;
 }
 
@@ -334,15 +344,18 @@ body {
 
 .nav-link {
   display: inline-block;
-  font-size: 13.5px; /* 텍스트 크기 */
+  font-size: 13.5px;
+  /* 텍스트 크기 */
   font-weight: 500;
-  color: #8c8c8c; /* 색깔 조금 더 연하게 */
+  color: #8c8c8c;
+  /* 색깔 조금 더 연하게 */
   text-decoration: none;
   letter-spacing: -0.3px;
   line-height: 1.25;
   text-align: left;
   transition: color 0.15s ease;
-  transform: none !important; /* LIFT 효과 제거 */
+  transform: none !important;
+  /* LIFT 효과 제거 */
   cursor: pointer;
 }
 
@@ -739,15 +752,16 @@ section[id],
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px; /* 시작 따옴표와 텍스트 간격 밀착 */
+  gap: 20px;
+  /* 시작 따옴표와 텍스트 간격 밀착 */
   text-align: center;
   /* 레이지 로딩 기본 상태 */
   opacity: 0;
   transform: translateY(40px);
   filter: blur(6px);
   transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
 }
 
@@ -761,12 +775,13 @@ section[id],
   font-family: "Georgia", "Times New Roman", serif;
   font-size: 130px;
   line-height: 0.6;
-  color: #76614f; /* 정채움 시그니처 웜 브라운 */
+  color: #76614f;
+  /* 정채움 시그니처 웜 브라운 */
   opacity: 0;
   flex-shrink: 0;
   user-select: none;
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 시작 따옴표: 텍스트에 더 가깝게 밀착 및 레이지 로딩 */
@@ -806,7 +821,7 @@ section[id],
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
-              transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
   will-change: transform, opacity;
 }
 
@@ -959,7 +974,8 @@ section[id],
 .ceo-caption {
   font-size: 13px;
   font-weight: 500;
-  color: #999999; /* 더 옅은 회색 글씨 */
+  color: #999999;
+  /* 더 옅은 회색 글씨 */
   margin-top: 8px;
   letter-spacing: -0.2px;
   text-align: center;
@@ -1154,7 +1170,8 @@ section[id],
   gap: 6px;
   font-size: 14.5px;
   font-weight: 500;
-  color: #777777; /* 회색 글씨 */
+  color: #777777;
+  /* 회색 글씨 */
   text-decoration: none;
   letter-spacing: -0.3px;
   transition: color 0.2s ease;
@@ -1617,6 +1634,7 @@ section[id],
   transform: translate(0, 0);
   opacity: 1;
 }
+
 .triangle-stage.step-1 .t2,
 .triangle-stage.step-1 .t3,
 .triangle-stage.step-1 .t4,
@@ -1631,18 +1649,22 @@ section[id],
   transform: translate(-120px, 0);
   opacity: 1;
 }
+
 .triangle-stage.step-2 .t2 {
   transform: translate(-40px, 0);
   opacity: 1;
 }
+
 .triangle-stage.step-2 .t3 {
   transform: translate(40px, 0);
   opacity: 1;
 }
+
 .triangle-stage.step-2 .t4 {
   transform: translate(120px, 0);
   opacity: 1;
 }
+
 .triangle-stage.step-2 .t5,
 .triangle-stage.step-2 .t6 {
   transform: translate(0, 0);
@@ -1654,22 +1676,27 @@ section[id],
   transform: translate(-150px, 10px);
   opacity: 1;
 }
+
 .triangle-stage.step-3 .t2 {
   transform: translate(-60px, -65px);
   opacity: 1;
 }
+
 .triangle-stage.step-3 .t3 {
   transform: translate(0px, -15px);
   opacity: 1;
 }
+
 .triangle-stage.step-3 .t4 {
   transform: translate(60px, 50px);
   opacity: 1;
 }
+
 .triangle-stage.step-3 .t5 {
   transform: translate(110px, -50px);
   opacity: 1;
 }
+
 .triangle-stage.step-3 .t6 {
   transform: translate(160px, 25px);
   opacity: 1;
@@ -1680,22 +1707,27 @@ section[id],
   transform: translate(-150px, -45px) rotate(180deg);
   opacity: 1;
 }
+
 .triangle-stage.step-4 .t2 {
   transform: translate(-60px, 25px);
   opacity: 1;
 }
+
 .triangle-stage.step-4 .t3 {
   transform: translate(0px, -55px) rotate(180deg);
   opacity: 1;
 }
+
 .triangle-stage.step-4 .t4 {
   transform: translate(60px, -20px);
   opacity: 1;
 }
+
 .triangle-stage.step-4 .t5 {
   transform: translate(110px, 40px) rotate(180deg);
   opacity: 1;
 }
+
 .triangle-stage.step-4 .t6 {
   transform: translate(160px, -35px);
   opacity: 1;
@@ -1706,22 +1738,27 @@ section[id],
   transform: translate(-150px, 35px);
   opacity: 1;
 }
+
 .triangle-stage.step-5 .t2 {
   transform: translate(-60px, -40px) rotate(180deg);
   opacity: 1;
 }
+
 .triangle-stage.step-5 .t3 {
   transform: translate(0px, 45px);
   opacity: 1;
 }
+
 .triangle-stage.step-5 .t4 {
   transform: translate(60px, -45px) rotate(180deg);
   opacity: 1;
 }
+
 .triangle-stage.step-5 .t5 {
   transform: translate(110px, -20px);
   opacity: 1;
 }
+
 .triangle-stage.step-5 .t6 {
   transform: translate(160px, 45px) rotate(180deg);
   opacity: 1;
@@ -3033,9 +3070,9 @@ section[id],
   transform: translateY(48px) scale(0.96);
   filter: blur(6px);
   transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 1.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 1.35s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--delay, 0s);
 }
 
@@ -3185,7 +3222,8 @@ section[id],
    ========================================= */
 .partners-section {
   width: 100%;
-  min-height: 200vh; /* 여유로운 스크롤 체류 구간 */
+  min-height: 200vh;
+  /* 여유로운 스크롤 체류 구간 */
   background-color: #ffffff;
   position: relative;
   box-sizing: border-box;
@@ -3291,14 +3329,17 @@ section[id],
   .partners-grid {
     max-width: 780px;
   }
+
   .partner-card {
     height: 100px;
     padding: 14px 18px;
     border-radius: 0;
   }
+
   .partner-card img {
     max-height: 46px;
   }
+
   .partner-card.partner-lg img {
     max-height: 58px;
     max-width: 88%;
@@ -3324,6 +3365,7 @@ section[id],
   .partner-card img {
     max-height: 40px;
   }
+
   .partner-card.partner-lg img {
     max-height: 50px;
     max-width: 88%;
@@ -3341,6 +3383,7 @@ section[id],
   .partner-card img {
     max-height: 34px;
   }
+
   .partner-card.partner-lg img {
     max-height: 42px;
     max-width: 90%;
@@ -3357,7 +3400,8 @@ section[id],
    ========================================= */
 .sales-section {
   width: 100%;
-  min-height: 230vh; /* 여유로운 스크롤 체류 구간 및 다음 섹션 진입 여백 */
+  min-height: 230vh;
+  /* 여유로운 스크롤 체류 구간 및 다음 섹션 진입 여백 */
   background-color: #ffffff;
   position: relative;
   box-sizing: border-box;
@@ -3381,7 +3425,8 @@ section[id],
 
 .sales-container {
   width: 100%;
-  max-width: 900px; /* 크기 축소 */
+  max-width: 900px;
+  /* 크기 축소 */
   margin: 65px auto 0 auto;
   display: flex;
   flex-direction: column;
@@ -3389,7 +3434,8 @@ section[id],
 }
 
 .sales-title-group {
-  margin-bottom: 42px; /* 타이틀과 그래프 사이 마진 확대 */
+  margin-bottom: 42px;
+  /* 타이틀과 그래프 사이 마진 확대 */
   text-align: center;
 }
 
@@ -3480,7 +3526,8 @@ section[id],
   gap: 4px;
   font-size: 13.5px;
   font-weight: 700;
-  color: #665648; /* 세련된 고동색 #665648 */
+  color: #665648;
+  /* 세련된 고동색 #665648 */
   letter-spacing: -0.3px;
 }
 
@@ -3546,7 +3593,8 @@ section[id],
 
 .axis-label.highlight-x {
   font-weight: 800;
-  fill: #665648; /* 세련된 고동색 #665648 */
+  fill: #665648;
+  /* 세련된 고동색 #665648 */
 }
 
 /* 단정한 꺾은선 & 채우기 (화려한 딜레이/스트로크 드로잉 없이 가만히 품격있게 유지) */
@@ -3565,7 +3613,8 @@ section[id],
 
 .chart-point {
   fill: #665648;
-  stroke: #665648; /* 세련된 고동색 #665648 */
+  stroke: #665648;
+  /* 세련된 고동색 #665648 */
   stroke-width: 3px;
 }
 
@@ -3600,7 +3649,8 @@ section[id],
 }
 
 .highlight-badge-box .badge-bg {
-  fill: #665648; /* 세련된 고동색 #665648 */
+  fill: #665648;
+  /* 세련된 고동색 #665648 */
 }
 
 .highlight-badge-box .highlight-val {
@@ -3670,7 +3720,8 @@ section[id],
   align-items: center;
   text-align: center;
   padding: 160px 24px 120px 24px;
-  margin-top: 100px; /* 스크롤을 더 내려야 글씨가 나타나도록 충분한 여백 확보 */
+  margin-top: 100px;
+  /* 스크롤을 더 내려야 글씨가 나타나도록 충분한 여백 확보 */
   box-sizing: border-box;
   position: relative;
   z-index: 10;
@@ -3695,9 +3746,11 @@ section[id],
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(170px, 20vw, 260px); /* 로고 크기 축소 */
+  width: clamp(170px, 20vw, 260px);
+  /* 로고 크기 축소 */
   height: auto;
-  opacity: 0.05; /* 더욱 은은하고 옅은 회색 워터마크 효과 */
+  opacity: 0.05;
+  /* 더욱 은은하고 옅은 회색 워터마크 효과 */
   filter: grayscale(100%);
   pointer-events: none;
   z-index: 1;
@@ -3716,9 +3769,11 @@ section[id],
 }
 
 .trust-slogan-title {
-  font-size: clamp(32px, 4.2vw, 50px); /* 영문 글씨 적당한 크기로 축소 */
+  font-size: clamp(32px, 4.2vw, 50px);
+  /* 영문 글씨 적당한 크기로 축소 */
   font-weight: 800;
-  color: #111111; /* 검은 글씨 */
+  color: #111111;
+  /* 검은 글씨 */
   letter-spacing: -1px;
   line-height: 1.15;
   margin: 0 0 20px 0;
@@ -3728,9 +3783,11 @@ section[id],
 }
 
 .trust-slogan-desc {
-  font-size: clamp(20px, 2.5vw, 28px); /* 한글 글씨 시원하게 확대 */
+  font-size: clamp(20px, 2.5vw, 28px);
+  /* 한글 글씨 시원하게 확대 */
   font-weight: 600;
-  color: #111111; /* 검은 글씨 */
+  color: #111111;
+  /* 검은 글씨 */
   letter-spacing: -0.5px;
   line-height: 1.6;
   margin: 0;
@@ -3762,7 +3819,8 @@ section[id],
   width: 100%;
   background-color: #76614f;
   color: #ffffff;
-  padding: 95px 32px 85px 32px; /* 세로로 더 길고 여유 있게 확대 */
+  padding: 95px 32px 85px 32px;
+  /* 세로로 더 길고 여유 있게 확대 */
   box-sizing: border-box;
   position: relative;
   z-index: 10;
@@ -3830,7 +3888,8 @@ section[id],
 
 .footer-sns-link {
   font-size: 13.5px;
-  font-weight: 400; /* 볼드체 제외 */
+  font-weight: 400;
+  /* 볼드체 제외 */
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   letter-spacing: 1.2px;
