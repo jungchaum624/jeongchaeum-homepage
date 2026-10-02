@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(주)정채움</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- 인트로 오버레이 퐁피두 센터 스타일 기둥 분할 커튼 -->
+  <div class="intro-screen" id="introScreen">
+    <div class="curtain-column" style="--i:0"></div>
+    <div class="curtain-column" style="--i:1"></div>
+    <div class="curtain-column" style="--i:2"></div>
+    <div class="curtain-column" style="--i:3"></div>
+    <div class="curtain-column" style="--i:4"></div>
+    <div class="curtain-column" style="--i:5"></div>
+    <div class="logo-container" id="logoContainer">
+      <img src="대지 1 로고.png" alt="정채움 로고" class="intro-logo" />
+    </div>
+  </div>
+
+  <!-- 메인 레이아웃 -->
+  <div class="main-wrapper">
+    <!-- 상단 헤더 (흰 배경 위 로고 및 우측 두 개 줄 메뉴 버튼) -->
+    <header class="top-header">
+      <a href="#heroSection" class="header-logo-link" aria-label="정채움 메인으로 이동">
+        <img src="대지 1 로고.png" alt="정채움 상단 로고" class="header-logo" />
+      </a>
+      <div class="header-current-section" id="headerCurrentSection"></div>
+      <button class="header-menu-btn" type="button" aria-label="메뉴 열기">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+      </button>
+      <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </header>
+
+    <!-- 네비게이션 메뉴 오버레이 (헤더 두 줄 버튼 클릭 시 펼쳐지는 소제목 메뉴) -->
+    <nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <div class="nav-overlay-inner">
+        <h2 class="nav-top-title">MENU</h2>
+
+        <div class="nav-content-block">
+          <div class="nav-col">
+            <span class="nav-sub-title">NAVIGATION</span>
+            <ul class="nav-menu-list">
+              <li><a href="#ceoSection" class="nav-link" data-target="ceoSection">회사소개</a></li>
+              <li><a href="#brandSection" class="nav-link" data-target="brandSection">운영 브랜드</a></li>
+              <li><a href="#visionSection" class="nav-link" data-target="visionSection">정채움 비전</a></li>
+              <li><a href="#hanwooVisionSection" class="nav-link" data-target="hanwooVisionSection">한우고집쟁이 비전</a></li>
+              <li><a href="#historySection" class="nav-link" data-target="historySection">회사연혁</a></li>
+              <li><a href="#safetySection" class="nav-link" data-target="safetySection">안전경영</a></li>
+              <li><a href="#rdSection" class="nav-link" data-target="rdSection">정채움 R&D+핵심역량</a></li>
+              <li><a href="#haccpTechSection" class="nav-link" data-target="haccpTechSection">HACCP 인증 및 기술성과</a></li>
+              <li><a href="#partnersSection" class="nav-link" data-target="partnersSection">협력업체</a></li>
+              <li><a href="#salesSection" class="nav-link" data-target="salesSection">매출 성과</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-col">
+            <span class="nav-sub-title">BRAND</span>
+            <ul class="nav-menu-list">
+              <li><a href="https://xn--hy1b22l69dloy.com/category/%EC%96%91%EB%85%90%EC%9C%A1/166/" target="_blank"
+                  rel="noopener noreferrer" class="nav-link">정채움</a></li>
+              <li><a href="https://xn--hy1b22l69dloy.com/product/list.html?cate_no=24" target="_blank"
+                  rel="noopener noreferrer" class="nav-link">한우고집쟁이</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-bottom-divider"></div>
+
+        <!-- 메뉴 오버레이 하단 푸터 영역 (선 아래 푸터와 동일한 내용) -->
+        <div class="nav-footer-area">
+          <div class="nav-footer-main">
+            <div class="nav-footer-left-group">
+              <img src="대지 1 로고.png" alt="정채움 로고" class="nav-footer-brand-logo" />
+              <div class="nav-footer-info">
+                <p class="nav-company-details">
+                  <span>회사명 : (주)정채움</span>
+                  <span>CEO : 정한철</span>
+                </p>
+                <p class="nav-company-details">
+                  <span>사업자등록번호 : 314-86-45574</span>
+                </p>
+                <p class="nav-company-details">
+                  <span>주소 : 대전 유성구 월드컵대로51번길 51-4 (장대동)</span>
+                </p>
+                <p class="nav-company-details">
+                  <span>통신판매업 신고번호 : 제2021-대전유성-0027호 [사업자정보확인]</span>
+                </p>
+                <p class="nav-company-details">
+                  <span>FAX : 042-623-7287</span>
+                </p>
+                <div class="nav-footer-copy">
+                  <p>Copyright © 2026 (주)정채움 All Rights Reserved.</p>
+                </div>
+              </div>
+            </div>
+            <div class="nav-footer-right">
+              <div class="nav-footer-sns">
+                <a href="https://blog.naver.com/hanwoogozib" class="nav-footer-link" target="_blank"
+                  rel="noopener noreferrer">BLOG</a>
+                <a href="https://xn--hy1b22l69dloy.com/" class="nav-footer-link" target="_blank"
+                  rel="noopener noreferrer">STORE</a>
+                <a href="https://smartstore.naver.com/jungchaeum" class="nav-footer-link" target="_blank"
+                  rel="noopener noreferrer">NAVER SMART STORE</a>
+              </div>
+              <div class="nav-footer-cs">
+                <span class="nav-cs-badge">고객센터</span>
+                <p class="nav-cs-phone">010-3983-7288</p>
+                <p class="nav-cs-hours">평일 9:00~17:30 (점심시간 12:00~13:00)</p>
+                <p class="nav-cs-holiday">주말 및 공휴일 휴무</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 메인 비주얼 영역 (슬라이더) -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-wrapper">
+        <div class="hero-slider-row">
+          <button class="slider-btn prev-btn" id="prevBtn" type="button" aria-label="이전 슬라이드">
+            <svg viewBox="0 0 28 28" width="30" height="30" fill="none">
+              <path d="M16 4L9 14L16 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="slider-container" id="heroSlider">
+            <!-- 슬라이드 트랙 -->
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide active">
+                <img src="hero4.png" alt="정채움 소불고기 상차림" class="hero-bg" />
+              </div>
+              <div class="slide">
+                <img src="hero2.png" alt="정채움 LA갈비 구이" class="hero-bg" />
+              </div>
+              <div class="slide">
+                <img src="hero3.png" alt="정채움 한우 신선육" class="hero-bg" />
+              </div>
+              <div class="slide">
+                <img src="hero1.png" alt="정채움 본사 사옥" class="hero-bg" />
+              </div>
+            </div>
+          </div>
+
+          <button class="slider-btn next-btn" id="nextBtn" type="button" aria-label="다음 슬라이드">
+            <svg viewBox="0 0 28 28" width="30" height="30" fill="none">
+              <path d="M12 4L19 14L12 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- 하단 인디케이터 (사진 아래에 위치하는 4개의 동그란 점) -->
+        <div class="slider-dots" id="sliderDots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 히어로 섹션 아래 슬로건 섹션 (스크롤 시 페이드인) -->
+    <section class="hero-quote-section" id="heroQuoteSection">
+      <div class="hero-quote-container scroll-fade">
+        <span class="quote-mark left-quote" aria-hidden="true">“</span>
+        <p class="hero-quote-text">
+          건강한 식문화를 위해 오늘도 정직하게<br>
+          제대로 된 재료, 시간, 정성만을 고집하며<br>
+          한 끼의 가치가 더 특별해지는 경험을 만들어갑니다
+        </p>
+        <span class="quote-mark right-quote" aria-hidden="true">”</span>
+      </div>
+    </section>
+
+    <!-- 대표님 소개 섹션 (스크롤 시 왼쪽에서 중간으로 슬라이드인) -->
+    <section class="ceo-section" id="ceoSection">
+      <div class="ceo-sticky-wrapper">
+        <!-- 회사소개 타이틀 -->
+        <div class="section-title-group ceo-title-group scroll-fade" id="ceoTitle">
+          <span class="section-subtitle-en">ABOUT US</span>
+          <h2 class="ceo-section-title">회사소개</h2>
+        </div>
+
+        <!-- 중앙 정채움 검은색 로고 -->
+        <div class="ceo-logo-wrapper scroll-fade">
+          <img src="대지 1 로고.png" alt="정채움 로고" class="ceo-center-logo" />
+        </div>
+
+        <div class="ceo-container">
+          <!-- 왼쪽: 대표님 이미지 -->
+          <div class="ceo-image-wrapper scroll-slide-left" id="ceoImageWrapper">
+            <img src="대표님 이미지.png" alt="정채움 대표님" class="ceo-image" loading="lazy" />
+            <p class="ceo-caption">총괄 CEO 정한철</p>
+          </div>
+
+          <!-- 오른쪽: 소개 텍스트 -->
+          <div class="ceo-text-wrapper scroll-slide-right" id="ceoTextWrapper">
+
+            <blockquote class="ceo-quote">
+              "정직한 먹거리,<br>
+              건강한 식문화를 이끌어가겠습니다."
+            </blockquote>
+
+            <p class="ceo-description">
+              더 좋은 것을 만들고, 더 좋은 한 끼를 전하고 싶은 마음.<br>
+              소중한 사람의 식탁에 믿을 수 있는 음식을 채우고 싶은 마음.<br>
+              그 마음에서 <strong>‘정채움’</strong>이 시작되었습니다.<br>
+              <strong>정채움</strong>은 <strong>17년간의 롯데호텔 실무 경험</strong>과 <strong>박사 과정의 전문성</strong>, <strong>식품가공 명장의
+                기술력</strong>을 바탕으로 축적된 노하우를 <strong>연구개발</strong>과 <strong>표준화된 공정</strong>으로 발전시키며 차별화된 식품 기술을
+              구축했습니다.<br>
+              우리는 끊임없는 연구와 기술 혁신을 통해 <strong>누구나 믿고 선택할 수 있는 맛의 기준</strong>을 만들고, <strong>지속 가능한 푸드테크 산업의 미래</strong>를
+              만들어갑니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 운영 브랜드 섹션 -->
+    <section class="brand-section" id="brandSection">
+      <div class="brand-sticky-wrapper">
+        <div class="brand-content-wrapper">
+          <div class="section-title-group scroll-fade">
+            <span class="section-subtitle-en">OUR BRANDS</span>
+            <h2 class="brand-section-title">운영 브랜드</h2>
+          </div>
+          <div class="brand-cards-container scroll-fade">
+            <div class="brand-card">
+              <div class="brand-image-box">
+                <img src="정채움.png" alt="정채움 브랜드" class="brand-image" />
+              </div>
+              <a href="https://xn--hy1b22l69dloy.com/category/%EC%96%91%EB%85%90%EC%9C%A1/166/" target="_blank"
+                rel="noopener noreferrer" class="brand-explore-btn">
+                <span>정채움 살펴보기</span>
+                <svg viewBox="0 0 8 10" width="7" height="9" fill="currentColor">
+                  <path d="M0 0.5L8 5L0 9.5Z" />
+                </svg>
+              </a>
+            </div>
+            <div class="brand-card">
+              <div class="brand-image-box">
+                <img src="한우고집쟁이.png" alt="한우고집쟁이 브랜드" class="brand-image" />
+              </div>
+              <a href="https://xn--hy1b22l69dloy.com/product/list.html?cate_no=24" target="_blank"
+                rel="noopener noreferrer" class="brand-explore-btn">
+                <span>한우고집쟁이 살펴보기</span>
+                <svg viewBox="0 0 8 10" width="7" height="9" fill="currentColor">
+                  <path d="M0 0.5L8 5L0 9.5Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 정채움 비전 섹션 -->
+    <section class="vision-section" id="visionSection">
+      <div class="vision-sticky-wrapper">
+        <div class="vision-content-wrapper">
+          <div class="section-title-group scroll-fade">
+            <span class="section-subtitle-en">OUR VISION</span>
+            <h2 class="vision-section-title">정채움 비전</h2>
+          </div>
+          <div class="vision-card-container scroll-fade">
+            <div class="vision-card">
+              <img src="대지 1 로고.png" alt="정채움 로고" class="vision-card-logo" />
+              <div class="vision-card-heading">TRUST-FILLED TABLE</div>
+              <div class="vision-card-subheading">정성을 채우다</div>
+              <div class="vision-card-divider"></div>
+              <div class="vision-card-desc">
+                대한민국을 넘어 세계로,<br />
+                프리미엄 K-FOOD 제조 · 유통의 표준
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 기하학적 네모 모듈 및 기업 전략 인터랙션 영역 (코너스톤 스타일 모션) -->
+    <section class="motion-section" id="boxMotionSection">
+      <div class="motion-sticky-wrapper">
+        <div class="strategy-interactive-container">
+          <!-- 상단 짧은 구분선 (스크롤 체류 시에도 상단에 유지) -->
+          <div class="motion-top-divider"></div>
+
+          <!-- 상단: 6개의 블랙 네모 모듈 -->
+          <div class="motion-boxes-container" id="boxStage">
+            <span class="motion-box b1"></span>
+            <span class="motion-box b2"></span>
+            <span class="motion-box b3"></span>
+            <span class="motion-box b4"></span>
+            <span class="motion-box b5"></span>
+            <span class="motion-box b6"></span>
+          </div>
+
+          <!-- 하단: 기업 전략 텍스트 영역 (좌: 영문 크게 + 한글 부제목 / 우: 한글 설명) -->
+          <div class="strategy-text-stage" id="strategyTextStage">
+            <!-- Item 1: Trust in Distribution -->
+            <div class="strategy-item active" data-step="step-1">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Trust in Distribution</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">유통의 신뢰</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">신선함을 제공합니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2: Smart Technology -->
+            <div class="strategy-item" data-step="step-2">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Smart-Technology</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">스마트 기술</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">위생과 효율을 극대화하며, 더 안전하고 스마트한 식품 유통을 실현합니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: Shared-Growth Distribution -->
+            <div class="strategy-item" data-step="step-3">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Shared-Growth Distribution</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">상생 유통</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">협력사와 동반 성장을 위해 숙련 기술을 전수하고</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">사회적 책임을 다하는 경영을 실천합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 한우고집쟁이 비전 섹션 -->
+    <section class="vision-section hanwoo-vision-section" id="hanwooVisionSection">
+      <div class="vision-sticky-wrapper">
+        <div class="vision-content-wrapper">
+          <div class="section-title-group scroll-fade">
+            <span class="section-subtitle-en">OUR VISION</span>
+            <h2 class="vision-section-title">한우고집쟁이 비전</h2>
+          </div>
+          <div class="vision-card-container scroll-fade">
+            <div class="vision-card">
+              <img src="한우고집쟁이 로고.png" alt="한우고집쟁이 로고" class="vision-card-logo hanwoo-logo" />
+              <div class="vision-card-heading">품질에 대한 고집,<br />신뢰할 수 있는 맛의 이야기</div>
+              <div class="vision-card-divider"></div>
+              <div class="vision-card-desc">
+                타협하지 않는 엄격한 품질 선별,<br />
+                대한민국 프리미엄 한우의 깊은 맛과 신뢰를 전합니다
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 한우고집쟁이 핵심역량 및 세모 모듈 인터랙션 영역 -->
+    <section class="motion-section hanwoo-motion-section" id="hanwooMotionSection">
+      <div class="motion-sticky-wrapper">
+        <div class="strategy-interactive-container">
+          <!-- 상단 짧은 구분선 (스크롤 체류 시에도 상단에 유지) -->
+          <div class="motion-top-divider"></div>
+
+          <!-- 상단: 6개의 블랙 세모 모듈 -->
+          <div class="motion-boxes-container triangle-stage" id="triangleStage">
+            <span class="motion-triangle t1"></span>
+            <span class="motion-triangle t2"></span>
+            <span class="motion-triangle t3"></span>
+            <span class="motion-triangle t4"></span>
+            <span class="motion-triangle t5"></span>
+            <span class="motion-triangle t6"></span>
+          </div>
+
+          <!-- 하단: 핵심역량 텍스트 영역 (좌: 영문 크게 + 한글 부제목 / 우: 한글 설명) -->
+          <div class="strategy-text-stage" id="hanwooStrategyTextStage">
+            <!-- Item 1: Optimal Fresh Delivery -->
+            <div class="strategy-item active" data-step="step-1">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Optimal Fresh Delivery</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">신선식품 최적 배송</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">하절기, 동절기 각 시즌에 맞는 계절별 맞춤 포장으로</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">신선함을 그대로 전달합니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2: Systematic Production -->
+            <div class="strategy-item" data-step="step-2">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Systematic Production</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">체계적 생산 공정</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">차별화된 한우고집쟁이만의 손질을 통해</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">각 부위별 맞춤 정형 스펙으로 규격화하여 보내드립니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: HACCP Certified -->
+            <div class="strategy-item" data-step="step-3">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">HACCP Certified</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">HACCP 인증업체</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">전 공정에서 위생과 안전을 최우선으로 하여 신뢰할 수 있는</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">식품을 제공합니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4: Special Skin Packaging -->
+            <div class="strategy-item" data-step="step-4">
+              <div class="strategy-left">
+                <div class="mask-box">
+                  <h3 class="strategy-en-title mask-line">Special Skin Packaging</h3>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-kr-subtitle mask-line">특수스킨 신선포장</p>
+                </div>
+              </div>
+              <div class="strategy-right">
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">산소를 차단하여 미생물 증식 억제로</p>
+                </div>
+                <div class="mask-box">
+                  <p class="strategy-desc mask-line">냉장 보관 시 최소 2주 이상 신선하게 보관</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 회사 연혁 사진 섹션 -->
+    <section class="history-section" id="historySection">
+      <div class="history-image-container scroll-fade">
+        <div class="history-overlay-title-group">
+          <span class="history-subtitle-en">OUR HISTORY</span>
+          <h2 class="history-title">회사연혁</h2>
+        </div>
+        <img src="회사연혁.png?v=2" alt="정채움 회사연혁" class="history-image" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- 연도별 연혁 스크롤 인터랙션 영역 -->
+    <section class="timeline-scroll-section" id="timelineScrollSection">
+      <div class="timeline-sticky-stage">
+        <!-- 좌측: 베이지 패널 + 현재 연도 세로 정중앙 고정 및 위/아래 흐린 연도 스택 -->
+        <div class="timeline-year-panel">
+          <div class="year-center-stage">
+            <!-- 상단: 지나간 연도 (세로 중앙 위쪽에 흐리게 배치) -->
+            <div class="year-slot-above" id="yearSlotAbove"></div>
+
+            <!-- 중앙: 현재 활성 연도 (4자리, 화면 세로 정중앙 영구 고정) -->
+            <div class="year-slot-current" id="yearSlotCurrent">2026</div>
+
+            <!-- 하단: 다가올 연도들 (세로 중앙 아래쪽에 흐리게 배치) -->
+            <div class="year-slot-below-stack" id="yearSlotBelowStack">
+              <div class="year-slot-below below-1">25</div>
+              <div class="year-slot-below below-2">24</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 흰 배경의 해당 연도 상세 연혁 내용 영역 (개별 항목 세로 중앙 스크롤 롤러) -->
+        <div class="timeline-detail-panel">
+          <!-- 배경 은은한 소프트 원형 그래픽 장식 -->
+          <div class="timeline-bg-circles" aria-hidden="true">
+            <span class="bg-circle circle-1"></span>
+            <span class="bg-circle circle-2"></span>
+            <span class="bg-circle circle-3"></span>
+          </div>
+
+          <div class="timeline-contents-roller" id="timelineContentsRoller">
+            <!-- 2026년 항목 (식품 가공 명장 선정) -->
+            <div class="timeline-milestone-item active" data-year="2026">
+              <span class="milestone-text">식품 가공 명장 선정</span>
+            </div>
+
+            <!-- 2025년 항목들 (ISO 4종 인증이 순차적으로 중앙에 도달) -->
+            <div class="timeline-milestone-item next-item" data-year="2025">
+              <span class="milestone-text">ISO 4종 인증</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">대한민국 조리 명인 선정</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">이달의 기능한국인 선정</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">숙련기술장려 모범사업체 선정</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">우수숙련기술자 식품가공 분야 선정</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">기능경기대회 요리직종 우수지도교사 표창</span>
+            </div>
+            <div class="timeline-milestone-item far-item" data-year="2025">
+              <span class="milestone-text">상품개발연구실 설립</span>
+              <span class="milestone-sub">(한국산업기술진흥협회 - 제 2025152605호)</span>
+            </div>
+
+            <!-- 2024년 항목 -->
+            <div class="timeline-milestone-item far-item" data-year="2024">
+              <span class="milestone-text">식육포장처리업</span>
+              <span class="milestone-text">HACCP 인증</span>
+            </div>
+
+            <!-- 2023년 항목 -->
+            <div class="timeline-milestone-item far-item" data-year="2023">
+              <span class="milestone-text">정나눔 설립</span>
+            </div>
+
+            <!-- 2021년 항목 -->
+            <div class="timeline-milestone-item far-item" data-year="2021">
+              <span class="milestone-text">식육가공업</span>
+              <span class="milestone-text">HACCP 인증</span>
+            </div>
+
+            <!-- 2020년 항목 -->
+            <div class="timeline-milestone-item far-item" data-year="2020">
+              <span class="milestone-text">(주)맛있는 생활</span>
+              <span class="milestone-text">법인회사 설립</span>
+            </div>
+
+            <!-- 2013년 항목 -->
+            <div class="timeline-milestone-item far-item" data-year="2013">
+              <span class="milestone-text">정채움 설립</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </section>
+
+  <!-- 안전경영 섹션 (연혁 종료 후 충분한 여백 및 스크롤 체류 효과) -->
+  <section class="safety-section" id="safetySection">
+    <div class="safety-sticky-wrapper">
+      <div class="safety-inner">
+        <!-- 타이틀 및 부제목 영역 -->
+        <div class="section-title-group safety-title-group scroll-fade">
+          <span class="section-subtitle-en">SAFETY MANAGEMENT</span>
+          <h2 class="safety-section-title">안전경영</h2>
+          <p class="safety-sub-statement">글로벌 기준의 신뢰할 수 있는 식품 안전 경영</p>
+        </div>
+
+        <!-- 상단 3개 주요 인증 카드 -->
+        <div class="safety-top-cards scroll-fade">
+          <div class="safety-stat-card">
+            <div class="stat-highlight"><span class="counter-number" id="safetyIsoCounter" data-target="4">0</span>종
+            </div>
+            <div class="stat-label">통합 ISO 인증</div>
+          </div>
+          <div class="safety-stat-card">
+            <div class="stat-highlight">Clean</div>
+            <div class="stat-label">위생 사업장</div>
+          </div>
+          <div class="safety-stat-card">
+            <div class="stat-highlight">HACCP</div>
+            <div class="stat-label">식품 안전 유통</div>
+          </div>
+        </div>
+
+        <!-- 하단 2개 상세 블록 (좌: ISO 4대 인증 규격 / 우: 정채움의 신뢰 가치) -->
+        <div class="safety-bottom-cards scroll-fade">
+          <!-- 좌측 카드: ISO 규격 리스트 -->
+          <div class="safety-detail-card iso-spec-card">
+            <h3 class="detail-card-title">ISO 4대 통합 인증 규격 보유</h3>
+            <ul class="iso-spec-list">
+              <li>
+                <span class="check-icon">
+                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="10" fill="#00c896" />
+                    <path d="M6 10.2L8.7 13L14.2 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="spec-text"><strong>ISO 9001 :</strong> 품질경영시스템 인증</span>
+              </li>
+              <li>
+                <span class="check-icon">
+                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="10" fill="#00c896" />
+                    <path d="M6 10.2L8.7 13L14.2 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="spec-text"><strong>ISO 14001 :</strong> 환경경영시스템 인증</span>
+              </li>
+              <li>
+                <span class="check-icon">
+                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="10" fill="#00c896" />
+                    <path d="M6 10.2L8.7 13L14.2 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="spec-text"><strong>ISO 45001 :</strong> 안전보건경영시스템 인증</span>
+              </li>
+              <li>
+                <span class="check-icon">
+                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="10" fill="#00c896" />
+                    <path d="M6 10.2L8.7 13L14.2 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="spec-text"><strong>ISO 50001 :</strong> 에너지경영시스템 인증</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 우측 카드: 정채움의 신뢰 가치 -->
+          <div class="safety-detail-card trust-value-card">
+            <h3 class="detail-card-title">정채움의 신뢰 가치</h3>
+            <p class="trust-value-desc">
+              (주)정채움은 글로벌 수준의 품질 관리를 통해<br />
+              <span class="black-highlight">호텔 컨벤션 직공급 품질을 유지</span>하며, <span class="black-highlight">벤처기업</span><br />
+              <span class="black-highlight">및 메인비즈 인증</span>을 통해 <span class="black-highlight">혁신 경영을 실천</span>하고<br />
+              있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- R&D + 핵심역량 섹션 (스크롤 체류 효과) -->
+  <section class="rd-section" id="rdSection">
+    <div class="rd-sticky-wrapper">
+      <div class="rd-inner">
+        <div class="section-title-group rd-title-group scroll-fade">
+          <span class="section-subtitle-en">R&D & Core Competencies</span>
+          <h2 class="rd-section-title">정채움 R&D+핵심역량</h2>
+          <p class="rd-sub-statement">연구로 증명하고 특허로 보호 받는 식품 과학과<br />모방할 수 없는 차별화된 제조 원천 기술</p>
+        </div>
+
+        <div class="rd-content-container scroll-fade">
+          <!-- 좌측: 특허증 이미지 영역 -->
+          <div class="rd-image-wrapper">
+            <img src="R&amp;D+핵심역량특허.png" alt="정채움 R&amp;D 핵심역량 특허증" class="rd-patent-image" loading="lazy" />
+          </div>
+
+          <!-- 우측: 핵심역량 3개 가로형 카드 영역 (특허증 옆에 세로로 3개 층층이 배치) -->
+          <div class="rd-details-wrapper">
+            <!-- 가로형 카드 1: 천연 연육 공법 -->
+            <div class="rd-card">
+              <div class="rd-card-left">
+                <div class="rd-card-icon-wrap">
+                  <svg class="rd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h12" />
+                    <path d="M9 3v5l-5 9.5A2 2 0 0 0 5.75 21h12.5a2 2 0 0 0 1.75-3.5L15 8V3" />
+                    <path d="M7 16h10" fill="currentColor" opacity="0.15" />
+                  </svg>
+                </div>
+                <h3 class="rd-card-title">특허 받은<br />천연 연육 공법</h3>
+              </div>
+              <div class="rd-card-right">
+                <p class="rd-card-desc">팽이버섯 추출물을 통해 본연의 맛을 지키며 부드러운 식감 완성</p>
+                <div class="rd-card-badge">특허번호: 제10-2683022호</div>
+              </div>
+            </div>
+
+            <!-- 가로형 카드 2: 스마트 유통 자동화 시스템 -->
+            <div class="rd-card">
+              <div class="rd-card-left">
+                <div class="rd-card-icon-wrap">
+                  <svg class="rd-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 2l2.4 2.2 3.2-.6 1.4 2.9 3.2 1-.5 3.3 2.1 2.6-2.1 2.6.5 3.3-3.2 1-1.4 2.9-3.2-.6L12 22l-2.4-2.2-3.2.6-1.4-2.9-3.2-1 .5-3.3L.2 10.6 2.3 8l-.5-3.3 3.2-1 1.4-2.9 3.2.6L12 2z" />
+                    <path d="M8.5 12.5l2.5 2.5 5-5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+                      stroke-linejoin="round" fill="none" />
+                  </svg>
+                </div>
+                <h3 class="rd-card-title">스마트 유통<br />자동화 시스템</h3>
+              </div>
+              <div class="rd-card-right">
+                <p class="rd-card-desc">자동 충진 및 레일 포장 라인을 구축하여 외부 오염을 차단하고 위생 품질 안정성 확보</p>
+                <div class="rd-card-badge">HACCP 2개 라인 인증</div>
+              </div>
+            </div>
+
+            <!-- 가로형 카드 3: 과학적 저온 숙성 메뉴얼 -->
+            <div class="rd-card">
+              <div class="rd-card-left">
+                <div class="rd-card-icon-wrap">
+                  <svg class="rd-icon" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#111111" />
+                    <path d="M8 12.2l2.8 2.8 5.4-5.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="rd-card-title">과학적 저온<br />숙성 메뉴얼</h3>
+              </div>
+              <div class="rd-card-right">
+                <p class="rd-card-desc">'48시간 저온 숙성' 공법을 적용하여 균일한 숙성을 통해 품질 편차 최소화</p>
+                <div class="rd-card-badge">17년 현장 데이터 기반</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- HACCP 인증 및 기술성과 / 상장 섹션 (레퍼런스 디자인 적용) -->
+  <section class="haccp-tech-section" id="haccpTechSection">
+    <!-- 상단 중앙 텍스트 영역 (화이트 배경) -->
+    <div class="awards-header-area">
+      <!-- 상단 소제목 -->
+      <div class="section-title-group haccp-tech-title-group scroll-fade">
+        <span class="section-subtitle-en">HACCP & TECHNICAL EXCELLENCE</span>
+        <h2 class="haccp-tech-section-title">HACCP 인증 및 기술성과</h2>
+      </div>
+
+      <!-- 성과 헤드라인 텍스트 영역 -->
+      <div class="awards-headline-group">
+        <h3 class="awards-main-title scroll-fade">
+          끊임없는 노력으로 쌓아온<br />
+          <span class="awards-title-focus">맛의 기준</span>
+        </h3>
+        <p class="awards-sub-desc scroll-fade">
+          꾸준한 연구와 노력으로<br />
+          더 좋은 맛을 만들어갑니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 하단 상장 이미지 영역 (고동색 -> 짙은 브라운 -> 블랙 그라데이션) -->
+    <div class="awards-dark-section">
+      <div class="awards-container">
+        <!-- 상단 3단 구조 (왼쪽: HACCP1, 중앙: 상장4(가장 크게), 오른쪽: HACCP2) - 한 줄 동시 노출 -->
+        <div class="awards-hero-row">
+          <div class="award-card card-haccp1 scroll-fade" style="--delay: 0s;">
+            <img src="HACCP1.png" alt="HACCP 인증서 1" loading="lazy" />
+          </div>
+          <div class="award-card card-center-hero scroll-fade" style="--delay: 0s;">
+            <img src="상장4.png" alt="이달의 기능한국인 증서 (상장4)" loading="lazy" />
+          </div>
+          <div class="award-card card-haccp2 scroll-fade" style="--delay: 0s;">
+            <img src="HACCP2.png" alt="HACCP 인증서 2" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- 중간 4단 그리드 (상장1, 상장2, 상장3, 상장5) - 한 줄 동시 노출 -->
+        <div class="awards-grid-row awards-row-4">
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장1.png" alt="상장 1" loading="lazy" />
+          </div>
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장2.png" alt="상장 2" loading="lazy" />
+          </div>
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장3.png" alt="상장 3" loading="lazy" />
+          </div>
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장5.png" alt="상장 5" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- 하단 3단 그리드 (상장6, 상장7, 상장8) - 한 줄 동시 노출 -->
+        <div class="awards-grid-row awards-row-3">
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장6.png" alt="상장 6" loading="lazy" />
+          </div>
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장7.png" alt="상장 7" loading="lazy" />
+          </div>
+          <div class="award-card scroll-fade" style="--delay: 0s;">
+            <img src="상장8.png" alt="상장 8" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 협력업체 섹션 (스크롤 체류 효과) -->
+  <section class="partners-section" id="partnersSection">
+    <div class="partners-sticky-wrapper" id="partnersStickyWrapper">
+      <div class="partners-container">
+        <div class="section-title-group partners-title-group scroll-fade">
+          <span class="section-subtitle-en">OUR PARTNERS</span>
+          <h2 class="partners-section-title">협력업체</h2>
+        </div>
+
+        <!-- 협력업체 파트너 로고 그리드 (3개씩 4줄, 총 12개) -->
+        <div class="partners-grid scroll-fade">
+          <div class="partner-card">
+            <img src="파트너1.png" alt="루이비스" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너2.png?v=2" alt="유성컨벤션" loading="lazy" />
+          </div>
+          <!-- 쿠우쿠우 (로고 확대) -->
+          <div class="partner-card partner-lg">
+            <img src="파트너3.png" alt="쿠우쿠우" loading="lazy" />
+          </div>
+          <!-- 호텔 오노마 (로고 확대) -->
+          <div class="partner-card partner-lg">
+            <img src="파트너4.png" alt="호텔 오노마" loading="lazy" />
+          </div>
+          <!-- 호텔 ICC (로고 확대) -->
+          <div class="partner-card partner-lg">
+            <img src="파트너5.png" alt="호텔 ICC" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너6.png" alt="라비에벨" loading="lazy" />
+          </div>
+          <!-- 신세계 푸드 (로고 확대) -->
+          <div class="partner-card partner-lg">
+            <img src="파트너7.png" alt="신세계 푸드" loading="lazy" />
+          </div>
+          <!-- 베스타 (로고 확대) -->
+          <div class="partner-card partner-lg">
+            <img src="파트너8.png" alt="베스타" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너9.png" alt="동국제강" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너10.png" alt="협력업체 파트너 10" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너11.png" alt="협력업체 파트너 11" loading="lazy" />
+          </div>
+          <div class="partner-card">
+            <img src="파트너12.png" alt="협력업체 파트너 12" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 매출 성과 섹션 (스크롤 체류 효과) -->
+  <section class="sales-section" id="salesSection">
+    <div class="sales-sticky-wrapper" id="salesStickyWrapper">
+      <div class="sales-container">
+        <div class="section-title-group sales-title-group scroll-fade">
+          <span class="section-subtitle-en">SALES PERFORMANCE</span>
+          <h2 class="sales-section-title">매출 성과</h2>
+          <p class="sales-section-desc">전체 매출 및 양념육, R&D 매출 추이와 성장률(단위 : 억 원)</p>
+        </div>
+
+        <!-- 좌우 2컬럼 레이아웃 (좌: 꺾은선 차트 / 우: 지표 카드 3개) -->
+        <div class="sales-content-row">
+          <!-- 상단: 단정하고 고급스러운 꺾은선 그래프 카드 -->
+          <div class="sales-chart-card scroll-fade">
+            <div class="chart-svg-wrapper">
+              <svg class="sales-chart-svg" viewBox="10 4 725 236" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- #665648 고동색 그라데이션 영역 채우기 -->
+                  <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#665648" stop-opacity="0.16" />
+                    <stop offset="70%" stop-color="#665648" stop-opacity="0.04" />
+                    <stop offset="100%" stop-color="#665648" stop-opacity="0.0" />
+                  </linearGradient>
+
+                  <!-- 꺾은선 자체의 #665648 스트로크 -->
+                  <linearGradient id="chartLineGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#7a6857" />
+                    <stop offset="100%" stop-color="#665648" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Y축 레이블 & 년도 위 기준 가로선 -->
+                <g class="chart-grid-lines">
+                  <text x="38" y="38" class="axis-label y-axis">150</text>
+                  <text x="38" y="67" class="axis-label y-axis">125</text>
+                  <text x="38" y="96" class="axis-label y-axis">100</text>
+                  <text x="38" y="125" class="axis-label y-axis">75</text>
+                  <text x="38" y="154" class="axis-label y-axis">50</text>
+                  <text x="38" y="183" class="axis-label y-axis">25</text>
+                  <text x="38" y="212" class="axis-label y-axis">0</text>
+
+                  <!-- 그래프 년도 바로 위에 있는 가로 기준선 -->
+                  <line x1="48" y1="210" x2="730" y2="210" class="base-line" />
+                </g>
+
+                <!-- 영역 채우기 -->
+                <path class="chart-area-path" id="chartAreaPath"
+                  d="M 120,75.8 L 300,93.3 L 480,77.7 L 660,38.2 L 660,210 L 120,210 Z"
+                  fill="url(#chartAreaGradient)" />
+
+                <!-- 꺾은선 (단정하게 가만히 유지) -->
+                <path class="chart-line-path" id="chartLinePath" d="M 120,75.8 L 300,93.3 L 480,77.7 L 660,38.2"
+                  fill="none" stroke="url(#chartLineGradient)" stroke-width="3.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <!-- 데이터 포인트 노드 & 값 태그 -->
+                <!-- 2022년: 115억 -->
+                <g class="chart-point-group">
+                  <circle cx="120" cy="75.8" r="4.5" class="chart-point" />
+                  <text x="120" y="58" class="point-value-tag">115억</text>
+                </g>
+
+                <!-- 2023년: 100억 -->
+                <g class="chart-point-group">
+                  <circle cx="300" cy="93.3" r="4.5" class="chart-point" />
+                  <text x="300" y="76" class="point-value-tag">100억</text>
+                </g>
+
+                <!-- 2024년: 113.4억 -->
+                <g class="chart-point-group">
+                  <circle cx="480" cy="77.7" r="4.5" class="chart-point" />
+                  <text x="480" y="60" class="point-value-tag">113.4억</text>
+                </g>
+
+                <!-- 2025년: 147.3억 (물결치듯 퍼지는 강조 원형 및 배지) -->
+                <g class="chart-point-group point-highlight">
+                  <!-- 은은하고 차분한 물결(Ripple Wave) 서클 -->
+                  <g class="chart-ripple-container">
+                    <circle cx="660" cy="38.2" r="10" class="chart-ripple-wave wave-1">
+                      <animate attributeName="r" values="10; 25" dur="4.2s" begin="0s" repeatCount="indefinite"
+                        calcMode="spline" keyTimes="0; 1" keySplines="0.25 0.1 0.25 1" />
+                      <animate attributeName="opacity" values="0.45; 0" dur="4.2s" begin="0s" repeatCount="indefinite"
+                        calcMode="spline" keyTimes="0; 1" keySplines="0.25 0.1 0.25 1" />
+                      <animate attributeName="stroke-width" values="1.4; 0.2" dur="4.2s" begin="0s"
+                        repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="660" cy="38.2" r="10" class="chart-ripple-wave wave-2">
+                      <animate attributeName="r" values="10; 25" dur="4.2s" begin="2.1s" repeatCount="indefinite"
+                        calcMode="spline" keyTimes="0; 1" keySplines="0.25 0.1 0.25 1" />
+                      <animate attributeName="opacity" values="0.45; 0" dur="4.2s" begin="2.1s" repeatCount="indefinite"
+                        calcMode="spline" keyTimes="0; 1" keySplines="0.25 0.1 0.25 1" />
+                      <animate attributeName="stroke-width" values="1.4; 0.2" dur="4.2s" begin="2.1s"
+                        repeatCount="indefinite" />
+                    </circle>
+                  </g>
+
+                  <!-- 강조 원형 링 및 중심 점 -->
+                  <circle cx="660" cy="38.2" r="14" class="chart-highlight-ring" />
+                  <circle cx="660" cy="38.2" r="5" class="chart-point primary" />
+                  <g class="highlight-badge-box">
+                    <rect x="618" y="10" width="84" height="22" rx="0" class="badge-bg" />
+                    <text x="660" y="25" class="point-value-tag highlight-val">147.3억</text>
+                  </g>
+                </g>
+
+                <!-- X축 연도 레이블 -->
+                <g class="chart-x-labels">
+                  <text x="120" y="232" class="axis-label x-axis">2022년</text>
+                  <text x="300" y="232" class="axis-label x-axis">2023년</text>
+                  <text x="480" y="232" class="axis-label x-axis">2024년</text>
+                  <text x="660" y="232" class="axis-label x-axis highlight-x">2025년</text>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- 우측: 지표 카드 세로 스택 -->
+          <div class="sales-stat-cards">
+            <!-- 카드 1: 2025 전체 매출 (카운팅 효과 적용) -->
+            <div class="sales-stat-card primary-card scroll-fade">
+              <span class="sales-card-label">2025 전체 매출</span>
+              <div class="sales-card-number">
+                <span class="sales-counter" id="counterTotalSales" data-target="147.3" data-decimals="1">0</span>억
+              </div>
+              <div class="sales-card-badge">
+                <span class="badge-arrow">▲</span> 29.87%(전년대비)
+              </div>
+            </div>
+
+            <!-- 카드 2: 2025 R&D 사업 매출 -->
+            <div class="sales-stat-card scroll-fade">
+              <span class="sales-card-label">2025 R&D 사업 매출</span>
+              <div class="sales-card-number">
+                <span class="sales-counter" id="counterRdSales" data-target="4.4" data-decimals="1">0</span>억
+              </div>
+              <div class="sales-card-badge">
+                <span class="badge-arrow">▲</span> R&D 적용 제품 출시
+              </div>
+            </div>
+
+            <!-- 카드 3: 양념육 누적 매출 -->
+            <div class="sales-stat-card scroll-fade">
+              <span class="sales-card-label">양념육 누적 매출</span>
+              <div class="sales-card-number">
+                <span class="sales-counter" id="counterMeatSales" data-target="50" data-decimals="0">0</span>억
+              </div>
+              <div class="sales-card-badge">
+                <span class="badge-arrow">▲</span> 4년간 안정 유지
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 엔딩 슬로건 섹션 (TRUST-FILLED TABLE) -->
+  <section class="trust-slogan-section" id="trustSloganSection">
+    <div class="trust-slogan-container scroll-fade">
+      <!-- 텍스트 뒤에 겹치는 회색 정채움 로고 워터마크 -->
+      <img src="대지 1 로고.png" alt="정채움 워터마크" class="trust-slogan-bg-logo" />
+      <div class="trust-slogan-text-box">
+        <h2 class="trust-slogan-title">TRUST-FILLED TABLE</h2>
+        <p class="trust-slogan-desc">정채움의 더 나은 먹거리를 위한 고민은 계속됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 (#76614f 브라운 컬러) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="대지 1 로고.png" alt="정채움" class="footer-logo" />
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-main">
+          <div class="footer-info">
+            <p class="company-details">
+              <span>회사명 : (주)정채움</span>
+              <span>CEO : 정한철</span>
+            </p>
+            <p class="company-details">
+              <span>사업자등록번호 : 314-86-45574</span>
+            </p>
+            <p class="company-details">
+              <span>주소 : 대전 유성구 월드컵대로51번길 51-4 (장대동)</span>
+            </p>
+            <p class="company-details">
+              <span>통신판매업 신고번호 : 제2021-대전유성-0027호 [사업자정보확인]</span>
+            </p>
+            <p class="company-details">
+              <span>FAX : 042-623-7287</span>
+            </p>
+          </div>
+          <div class="footer-right-col">
+            <div class="footer-sns-links">
+              <a href="https://blog.naver.com/hanwoogozib" class="footer-sns-link" target="_blank"
+                rel="noopener noreferrer">BLOG</a>
+              <a href="https://xn--hy1b22l69dloy.com/" class="footer-sns-link" target="_blank"
+                rel="noopener noreferrer">STORE</a>
+              <a href="https://smartstore.naver.com/jungchaeum" class="footer-sns-link" target="_blank"
+                rel="noopener noreferrer">NAVER SMART STORE</a>
+            </div>
+            <div class="footer-cs-info">
+              <span class="cs-badge">고객센터</span>
+              <p class="cs-phone">010-3983-7288</p>
+              <p class="cs-hours">평일 9:00~17:30 (점심시간 12:00~13:00)</p>
+              <p class="cs-holiday">주말 및 공휴일 휴무</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copy">
+          <p>Copyright © 2026 (주)정채움 All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
