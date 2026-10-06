@@ -130,6 +130,11 @@ body {
   /* 웹 브라우저 Ctrl + 휠 스크롤 1회(110%) 확대한 비율 */
 }
 
+/* 모든 주요 섹션의 상단 스크롤 마진 (상단 헤더 고정 높이 상쇄) */
+section {
+  scroll-margin-top: 84px;
+}
+
 /* 상단 헤더: 원래 넓이와 패딩 유지, 상단 고정 */
 .top-header {
   position: fixed;
@@ -164,25 +169,58 @@ body {
   display: block;
 }
 
-/* 상단 헤더 중앙 현재 스크롤 위치 섹션 소제목 표시 */
-.header-current-section {
+/* 상단 헤더 바 아래쪽에 위치하는 섹션 네비게이션 */
+.header-nav {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #777777;
-  text-transform: uppercase;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  bottom: 11px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: calc(100% - 160px);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  white-space: nowrap;
+  z-index: 1002;
+}
+
+.header-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.header-nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   white-space: nowrap;
 }
 
-.header-current-section.visible {
-  opacity: 1;
+.header-nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #999999;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  padding: 2px 4px;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.header-nav-link:hover {
+  color: #333333;
+}
+
+/* 현재 스크롤 중인 섹션만 검은 글씨 */
+.header-nav-link.active {
+  color: #000000 !important;
+  font-weight: 700 !important;
 }
 
 /* 우측 두 개 줄 메뉴 버튼 */
@@ -230,13 +268,13 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0%;
+  width: 0px;
   height: 2px;
   background-color: #404040;
   /* 동일한 소프트 차콜 그레이 */
   pointer-events: none;
   z-index: 1001;
-  transition: width 0.05s linear;
+  transition: width 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* 네비게이션 메뉴 풀스크린 오버레이 (첨부 이미지 스타일) */
@@ -1073,151 +1111,320 @@ section[id],
   filter: blur(0px);
 }
 
-/* 운영 브랜드 섹션 */
+/* 운영 브랜드 섹션 (정채움 쇼케이스 - 확실하고 여유로운 스크롤 체류 효과) */
 .brand-section {
   width: 100%;
-  min-height: 180vh;
+  min-height: 250vh;
   position: relative;
-  margin-top: 140px;
-  background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, #ece4de 100%);
+  background: #ffffff;
+  box-sizing: border-box;
 }
 
 .brand-sticky-wrapper {
   position: sticky;
-  top: 120px;
-  /* 살짝 올라가 있던 기준 위치를 120px로 내려 안정감 확보 */
+  top: 105px;
   width: 100%;
-  min-height: calc(100vh - 120px);
+  height: calc(100vh - 105px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 80px 60px 80px;
+  padding: 45px 24px 25px 24px;
   box-sizing: border-box;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
-.brand-content-wrapper {
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
+.brand-showcase-container {
+  width: 100%;
+  max-width: 1040px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 22px;
+  box-sizing: border-box;
+  transform: translateZ(0);
 }
 
-.brand-content-wrapper .section-title-group {
-  margin-bottom: 70px;
-}
-
-.brand-section-title {
-  font-size: 38px;
-  /* 한글 부제목 크기 확대 */
+/* 상단 섹션 타이틀 */
+.brand-header-title {
+  font-size: 35px;
   font-weight: 800;
   color: #111111;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
+  margin: 0 0 20px 0;
   text-align: center;
 }
 
-.brand-cards-container {
+/* 상단: 좌측 대표 이미지 + 우측 (로고+설명글+버튼) */
+.brand-main-info-row {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: center;
-  align-items: stretch;
-  gap: 24px;
+  gap: 34px;
   width: 100%;
+  max-width: 800px;
   box-sizing: border-box;
+  margin-bottom: 16px;
 }
 
-.brand-card {
-  width: 320px;
-  max-width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  background: transparent;
-}
-
-.brand-image-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
+.brand-main-thumb-box {
+  width: 215px;
+  height: 215px;
+  min-width: 215px;
+  aspect-ratio: 1 / 1;
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  transform: none !important;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-.brand-card:hover .brand-image-box {
-  transform: none !important;
-}
-
-.brand-image {
+.brand-main-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 0;
 }
 
-.brand-explore-btn {
+.brand-main-desc-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.brand-h-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand-info-h-logo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-main-desc {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.68;
+  word-break: keep-all;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.brand-store-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 14.5px;
-  font-weight: 500;
-  color: #777777;
-  /* 회색 글씨 */
+  padding: 10px 22px;
+  background: #e5e5e5;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 700;
   text-decoration: none;
+  border-radius: 0;
   letter-spacing: -0.3px;
-  transition: color 0.2s ease;
-  padding: 4px 6px;
+  box-shadow: none;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.brand-explore-btn svg {
+.brand-store-btn:hover {
+  background: #cccccc;
+  color: #000000;
+}
+
+/* 하단: 3개 제품 카드 그리드 (사이 간격 넓게 확보) */
+.brand-products-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 50px;
+  width: 100%;
+  max-width: 1020px;
+  box-sizing: border-box;
+}
+
+.product-item-card {
+  flex: 1;
+  max-width: 295px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 7px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0;
+  height: 100%;
+}
+
+.product-thumb-box {
+  width: 100%;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-thumb {
+  width: 100%;
+  height: 100%;
+  max-height: 165px;
+  object-fit: contain;
+  display: block;
+}
+
+.product-name {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.3px;
+  text-align: center;
+  margin: 4px 0 0 0;
+  min-height: 24px;
+}
+
+.product-desc {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #444444;
+  line-height: 1.55;
+  word-break: keep-all;
+  text-align: center;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.2px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.product-detail-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 18px;
+  background: #e5e5e5;
+  color: #111111;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0;
+  letter-spacing: -0.3px;
+  box-shadow: none;
+  margin-top: auto;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.product-detail-btn:hover {
+  background: #cccccc;
+  color: #000000;
+}
+
+/* 깜빡이는 삼각형 화살표 (움직임 없이 제자리에서 깜빡임) */
+.btn-blink-arrow {
   display: inline-block;
-  width: 7px;
-  height: 9px;
-  fill: currentColor;
-  transition: transform 0.2s ease;
+  font-size: 8.5px;
+  line-height: 1;
+  transform: translateY(-0.5px);
+  animation: btnArrowBlink 1.15s infinite ease-in-out;
 }
 
-.brand-explore-btn:hover {
-  color: #222222;
+@keyframes btnArrowBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.15;
+  }
 }
 
-.brand-explore-btn:hover svg {
-  transform: translateX(2px);
-}
-
-@media (max-width: 900px) {
+@media (max-width: 640px) {
   .brand-sticky-wrapper {
-    padding: 30px 20px;
+    padding: 20px 16px;
   }
 
-  .brand-content-wrapper {
-    width: 100%;
-    align-items: center;
+  .brand-showcase-container {
+    gap: 16px;
   }
 
-  .brand-section-title {
-    align-self: center;
-    text-align: center;
+  .brand-main-info-row {
+    gap: 14px;
   }
 
-  .brand-cards-container {
+  .brand-main-thumb-box {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    border-radius: 0;
+  }
+
+  .brand-header-title {
+    font-size: 22px;
+  }
+
+  .brand-info-h-logo {
+    height: 32px;
+  }
+
+  .brand-main-desc {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .brand-store-btn {
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 0;
+  }
+
+  .brand-products-grid {
+    gap: 16px;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
   }
 
-  .brand-card {
+  .product-item-card {
     max-width: 100%;
-    width: 100%;
+  }
+
+  .product-thumb {
+    max-height: 110px;
+  }
+
+  .product-name {
+    font-size: 15px;
+  }
+
+  .product-desc {
+    font-size: 12px;
+  }
+
+  .product-detail-btn {
+    font-size: 12px;
+    padding: 6px 14px;
   }
 }
 
@@ -4043,8 +4250,27 @@ section[id],
     transform: translateY(-3.25px) rotate(-45deg) !important;
   }
 
-  .header-current-section {
-    display: none !important;
+  .header-nav {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 4px !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .header-nav-list {
+    gap: 12px !important;
+    justify-content: flex-start !important;
+  }
+
+  .header-nav-link {
+    font-size: 11.5px !important;
   }
 
   /* 1. 히어로 섹션: 컴퓨터처럼 좌우 화살표 버튼 + 중앙 와이드 슬라이더 유지 (상단 50px 헤더에 맞춤) */
@@ -4903,5 +5129,272 @@ section[id],
 
   .footer-copy {
     font-size: 11px !important;
+  }
+}
+
+/* ========================================================
+   [모바일 전용 디자인: 320px ~ 430px]
+   * iPhone 16(393px) 기준 정밀 1:1 맞춤 작업
+   * 431px 이상(태블릿/아이패드/PC)에는 일절 영향 없음
+   ======================================================== */
+@media (max-width: 430px) {
+
+  /* 인트로: 세로 분할 기둥 틈새(줄 쳐짐 현상) 완전 제거 -> 깨끗한 단일 흰색 배경 */
+  .intro-screen {
+    background-color: #ffffff !important;
+    animation: mobileIntroFadeOut 0.8s ease forwards 2.5s !important;
+  }
+
+  .curtain-column {
+    display: none !important;
+  }
+
+  /* 상단 헤더: 로고와 메뉴 버튼 조화롭게 정렬 */
+  .top-header {
+    height: 64px !important;
+    padding: 0 20px !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .header-logo {
+    width: 38px !important;
+    height: auto !important;
+  }
+
+  .header-menu-btn {
+    padding: 8px 0 !important;
+    gap: 5px !important;
+  }
+
+  .menu-bar {
+    width: 22px !important;
+    height: 2.2px !important;
+    background-color: #111111 !important;
+  }
+
+  .header-nav {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 4px !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .header-nav-list {
+    gap: 10px !important;
+    justify-content: flex-start !important;
+  }
+
+  .header-nav-link {
+    font-size: 10.5px !important;
+  }
+
+  /* 1. 히어로 섹션: 상단 바(64px) 아래로 정돈된 여백 배치 */
+  .hero-section {
+    margin-top: 76px !important;
+    padding: 10px 10px 20px 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-slider-row {
+    width: 100% !important;
+    gap: 6px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 슬라이더 컨테이너: 이미지 안의 정채움 로고가 잘리지 않도록 16:10 황금비율 및 border-radius 0 */
+  .slider-container {
+    width: 100% !important;
+    aspect-ratio: 16 / 10 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden !important;
+  }
+
+  /* 슬라이더 배경 이미지: 사진 좌측 하단 '정채움' 로고가 잘리지 않도록 좌측 정렬 맞춤 */
+  .hero-bg {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: left center !important;
+  }
+
+  /* 좌우 화살표 버튼: 터치하기 편하면서도 화면 폭을 방해하지 않는 깔끔한 크기 */
+  .slider-btn {
+    width: 26px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .slider-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* 인디케이터 도트: 중앙 균형 정렬 */
+  .slider-dots {
+    margin-top: 14px !important;
+    gap: 8px !important;
+  }
+
+  .dot {
+    width: 7px !important;
+    height: 7px !important;
+  }
+
+  .dot.active {
+    width: 7px !important;
+    height: 7px !important;
+  }
+
+  /* 메뉴 오버레이(메뉴창): 320~430px 모바일 전용 */
+  .nav-overlay {
+    padding: 70px 20px 30px 20px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    align-items: flex-start !important;
+  }
+
+  .nav-overlay-inner {
+    width: 100% !important;
+  }
+
+  .nav-top-title {
+    font-size: 26px !important;
+    transform: none !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* NAVIGATION & BRAND: 글씨 축소, 두 섹션 사이 거리 가깝게, 더 오른쪽으로 이동 */
+  .nav-content-block {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    gap: 28px !important;
+    margin-bottom: 34px !important;
+  }
+
+  .nav-sub-title {
+    font-size: 11px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .nav-menu-list {
+    gap: 4px !important;
+  }
+
+  .nav-link {
+    font-size: 11.5px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* 하단 회색 영역 */
+  .nav-footer-area {
+    width: 100% !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .nav-footer-main {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 로고는 그대로, 회사명부터 FAX까지는 로고 아래로 */
+  .nav-footer-left-group {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .nav-footer-brand-logo {
+    height: 46px !important;
+    margin-top: 0 !important;
+  }
+
+  .nav-footer-info {
+    width: 100% !important;
+    gap: 3px !important;
+  }
+
+  .nav-company-details {
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+    gap: 8px !important;
+  }
+
+  /* BLOG, INSTAGRAM부터 고객센터 및 주말/공휴일 휴무는 더 아래로 */
+  .nav-footer-right {
+    margin-top: 24px !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .nav-footer-sns {
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .nav-footer-link {
+    font-size: 11.5px !important;
+  }
+
+  .nav-footer-cs {
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 3px !important;
+  }
+
+  .nav-cs-badge {
+    font-size: 10px !important;
+  }
+
+  .nav-cs-phone {
+    font-size: 14px !important;
+  }
+
+  .nav-cs-hours,
+  .nav-cs-holiday {
+    font-size: 10.5px !important;
+  }
+
+  /* 마지막 줄에 copyright 배치 */
+  .nav-footer-copy {
+    margin-top: 20px !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .nav-footer-copy p {
+    font-size: 10px !important;
+  }
+}
+
+@keyframes mobileIntroFadeOut {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
 }
