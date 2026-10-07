@@ -118,6 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function smoothScrollToElement(targetEl) {
     if (!targetEl) return;
 
+    if (targetEl.id === "historySection" && targetEl.offsetHeight === 0) {
+      const altTimeline = document.getElementById("timelineScrollSection");
+      if (altTimeline) targetEl = altTimeline;
+    }
+
     isProgrammaticScrolling = true;
     if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
 
