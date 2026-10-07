@@ -5,7 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="naver-site-verification" content="33132f90a4ba97c12a2b581e06d44a6ff8e9a9f8" />
-  <title>(주)정채움</title>
+  <!-- 파비콘 (브라우저 탭 육각형 아이콘) -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -692,13 +695,17 @@
     </div>
   </section>
 
-  <!-- 운영 브랜드 섹션 (정채움 쇼케이스) -->
+  <!-- 운영 브랜드 섹션 (정채움 쇼케이스 - 하얀 화면 위 중앙 타이틀 -> 페이드아웃 후 정채움 체류 효과) -->
   <section class="brand-section" id="brandSection">
-    <div class="brand-sticky-wrapper">
-      <div class="brand-showcase-container">
-        <!-- 상단 섹션 타이틀 -->
-        <h2 class="brand-header-title">운영 브랜드</h2>
+    <div class="brand-sticky-wrapper" id="brandStickyWrapper">
+      <!-- 1단계: 하얀 화면 위 정중앙에 뜨는 '운영 브랜드' 타이틀 -->
+      <div class="brand-title-stage" id="brandTitleStage">
+        <span class="brand-stage-subtitle-en">OUR BRAND</span>
+        <h2 class="brand-stage-title">운영 브랜드</h2>
+      </div>
 
+      <!-- 2단계: 타이틀이 사라진 후 서서히 나타나 체류하는 정채움 콘텐츠 -->
+      <div class="brand-showcase-container" id="brandShowcaseContainer">
         <!-- 상단: 좌측 대표 이미지(정채움.png) + 우측 (가로 로고 + 설명글 + 스토어 버튼) -->
         <div class="brand-main-info-row">
           <div class="brand-main-thumb-box">
@@ -785,9 +792,6 @@
   <section class="brand-section" id="hanwooSection">
     <div class="brand-sticky-wrapper">
       <div class="brand-showcase-container">
-        <!-- 상단 섹션 타이틀 -->
-        <h2 class="brand-header-title">운영 브랜드</h2>
-
         <!-- 상단: 좌측 대표 이미지(한우고집쟁이.png) + 우측 (로고+설명글+버튼) -->
         <div class="brand-main-info-row">
           <div class="brand-main-thumb-box">

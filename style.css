@@ -1111,10 +1111,10 @@ section[id],
   filter: blur(0px);
 }
 
-/* 운영 브랜드 섹션 (정채움 쇼케이스 - 확실하고 여유로운 스크롤 체류 효과) */
+/* 운영 브랜드 쇼케이스 섹션 (320vh 여유로운 인트로 전환 + 체류 효과) */
 .brand-section {
   width: 100%;
-  min-height: 250vh;
+  min-height: 320vh;
   position: relative;
   background: #ffffff;
   box-sizing: border-box;
@@ -1129,32 +1129,94 @@ section[id],
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 45px 24px 25px 24px;
+  padding: 30px 24px 20px 24px;
   box-sizing: border-box;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 
+/* 1단계: 하얀 화면 위 정중앙 타이틀 스테이지 (제자리 소프트 디졸브) */
+.brand-title-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 2;
+  opacity: 1;
+  filter: blur(0px);
+  transition: opacity 1.6s ease-in-out, filter 1.6s ease-in-out;
+  pointer-events: auto;
+}
+
+.brand-title-stage.hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.brand-stage-subtitle-en {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.brand-stage-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #111111;
+  letter-spacing: -0.8px;
+  margin: 0;
+}
+
+.brand-stage-desc {
+  font-size: 17px;
+  font-weight: 500;
+  color: #555555;
+  margin: 4px 0 0 0;
+  letter-spacing: -0.3px;
+}
+
+/* 2단계: 정채움 쇼케이스 컨테이너 (위로 올라오는 모션 제거 -> 제자리에서 부드럽게 선명해지는 퓨어 디졸브) */
 .brand-showcase-container {
   width: 100%;
   max-width: 1040px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 28px;
   box-sizing: border-box;
-  transform: translateZ(0);
+  z-index: 1;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 1.6s ease-in-out, filter 1.6s ease-in-out;
+  pointer-events: none;
 }
 
-/* 상단 섹션 타이틀 */
-.brand-header-title {
-  font-size: 35px;
-  font-weight: 800;
-  color: #111111;
-  letter-spacing: -0.6px;
-  margin: 0 0 20px 0;
-  text-align: center;
+.brand-showcase-container.visible {
+  opacity: 1;
+  filter: blur(0px);
+  pointer-events: auto;
+}
+
+/* 한우고집쟁이 섹션은 타이틀 스테이지 없이 바로 쇼케이스가 보이도록 유지 */
+#hanwooSection .brand-showcase-container {
+  opacity: 1;
+  filter: blur(0px);
+  pointer-events: auto;
 }
 
 /* 상단: 좌측 대표 이미지 + 우측 (로고+설명글+버튼) */
@@ -1163,11 +1225,11 @@ section[id],
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 34px;
-  width: 100%;
-  max-width: 800px;
+  gap: 36px;
+  width: fit-content;
+  max-width: 100%;
   box-sizing: border-box;
-  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
 }
 
 .brand-main-thumb-box {
@@ -1190,7 +1252,7 @@ section[id],
 }
 
 .brand-main-desc-box {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1381,8 +1443,17 @@ section[id],
     border-radius: 0;
   }
 
-  .brand-header-title {
-    font-size: 22px;
+  .brand-intro-section {
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  .brand-intro-main-title {
+    font-size: 26px;
+  }
+
+  .brand-intro-sub-statement {
+    font-size: 13.5px;
   }
 
   .brand-info-h-logo {

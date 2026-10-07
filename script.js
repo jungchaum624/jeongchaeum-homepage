@@ -92,79 +92,68 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =========================================
-  // 최상단(히어로 섹션) 프리미엄 부드러운 스크롤 애니메이션 제어
+  // =========================================
+  // 최상단 및 섹션 이동 네비게이션 스크롤 제어
   // =========================================
   let isProgrammaticScrolling = false;
-  let activeScrollAnimId = null;
+  let programmaticScrollTimer = null;
 
   function smoothScrollToTop() {
-    if (activeScrollAnimId) {
-      cancelAnimationFrame(activeScrollAnimId);
-      activeScrollAnimId = null;
-    }
-
-    const startY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
-    if (startY <= 0) {
-      isProgrammaticScrolling = false;
-      return;
-    }
-
     isProgrammaticScrolling = true;
+    if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
 
-    const distance = Math.abs(startY);
-    // 거리에 맞춘 최적 듀레이션 (최소 480ms ~ 최대 750ms)
-    const duration = Math.min(750, Math.max(480, 480 + (distance / 4000) * 270));
-    const startTime = performance.now();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
-    // 시작은 신속하게 가속하고 종단에서 극도로 매끄럽게 안착하는 프리미엄 easeOutQuart 곡선
-    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
-
-    function step(currentTime) {
-      if (!isProgrammaticScrolling) return;
-
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = easeOutQuart(progress);
-
-      const nextY = Math.round(startY * (1 - ease));
-      window.scrollTo(0, nextY);
-
-      if (progress < 1) {
-        activeScrollAnimId = requestAnimationFrame(step);
-      } else {
-        window.scrollTo(0, 0);
-        activeScrollAnimId = null;
-        setTimeout(() => {
-          isProgrammaticScrolling = false;
-          if (typeof checkSafetyScroll === "function") {
-            checkSafetyScroll();
-          }
-        }, 80);
+    programmaticScrollTimer = setTimeout(() => {
+      isProgrammaticScrolling = false;
+      if (typeof updateNavAndProgress === "function") {
+        updateNavAndProgress();
       }
-    }
-
-    activeScrollAnimId = requestAnimationFrame(step);
+    }, 800);
   }
 
-  // 스크롤 이동 도중 사용자가 마우스 휠이나 터치로 개입하면 즉각 중단하여 사용자 조작 우선권 보장
-  window.addEventListener("wheel", () => {
-    if (isProgrammaticScrolling) {
-      isProgrammaticScrolling = false;
-      if (activeScrollAnimId) {
-        cancelAnimationFrame(activeScrollAnimId);
-        activeScrollAnimId = null;
-      }
+  function smoothScrollToElement(targetEl) {
+    if (!targetEl) return;
+
+    isProgrammaticScrolling = true;
+    if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
+
+    // 메뉴 이동 시 안전경영 카운트 락 등 중간 체류 락 즉시 완료 처리
+    if (typeof finishIsoCounter === "function") {
+      finishIsoCounter();
     }
+
+    const topHeader = document.querySelector(".top-header");
+    const headerHeight = topHeader ? topHeader.offsetHeight : 64;
+    const elementRect = targetEl.getBoundingClientRect();
+    const currentScrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+    const targetY = Math.max(0, Math.round(currentScrollY + elementRect.top - headerHeight + 2));
+
+    window.scrollTo({
+      top: targetY,
+      behavior: "smooth"
+    });
+
+    programmaticScrollTimer = setTimeout(() => {
+      isProgrammaticScrolling = false;
+      if (typeof updateNavAndProgress === "function") {
+        updateNavAndProgress();
+      }
+    }, 850);
+  }
+
+  // 사용자가 마우스 휠이나 터치로 개입하면 즉시 프로그래밍 스크롤 상태 해제
+  window.addEventListener("wheel", () => {
+    isProgrammaticScrolling = false;
+    if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
   }, { passive: true });
 
   window.addEventListener("touchstart", () => {
-    if (isProgrammaticScrolling) {
-      isProgrammaticScrolling = false;
-      if (activeScrollAnimId) {
-        cancelAnimationFrame(activeScrollAnimId);
-        activeScrollAnimId = null;
-      }
-    }
+    isProgrammaticScrolling = false;
+    if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
   }, { passive: true });
 
   // 상단 헤더 메뉴 버튼 클릭 시 두 줄이 교차되어 X자로 전환 및 네비게이션 오버레이 토글
@@ -215,8 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
               setTimeout(() => {
-                targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-              }, 150);
+                smoothScrollToElement(targetEl);
+              }, 60);
             }
           }
         } else if (href && href !== "#") {
@@ -315,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function isSafetyLocked() {
-    if (isIsoFinished || !safetySection) return false;
+    if (isProgrammaticScrolling || isIsoFinished || !safetySection) return false;
     const rect = safetySection.getBoundingClientRect();
     // 안전경영 섹션이 화면 상단 고정 위치(top 120px)에 도달하고 아직 화면에 머무는 중일 때
     return rect.top <= 125 && rect.bottom >= window.innerHeight * 0.45;
@@ -340,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener(
     "wheel",
     (e) => {
-      if (e.deltaY > 0) {
+      if (!isProgrammaticScrolling && e.deltaY > 0) {
         // 아래로 스크롤 시도 시 4 완료 전까지 락
         handleDownScrollAttempt(e);
       }
@@ -362,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener(
     "touchmove",
     (e) => {
-      if (!e.touches || e.touches.length === 0) return;
+      if (isProgrammaticScrolling || !e.touches || e.touches.length === 0) return;
       const currentY = e.touches[0].clientY;
       const diffY = touchStartY - currentY; // diffY > 0 이면 아래로 스크롤 의도
       if (diffY > 10) {
@@ -401,8 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isIsoCounting && !isIsoFinished) {
         startAutoIsoCounter();
       }
-      // 4가 채워지기 전에는 스크롤이 다음 섹션으로 새어 나가지 않도록 정위치 유지
-      if (!isIsoFinished && window.scrollY > pinScrollY + 2) {
+      // 4가 채워지기 전에는 스크롤이 다음 섹션으로 새어 나가지 않도록 정위치 유지 (프로그래밍 스크롤 중이 아닐 때만)
+      if (!isProgrammaticScrolling && !isIsoFinished && window.scrollY > pinScrollY + 2) {
         window.scrollTo({ top: pinScrollY, behavior: "instant" });
       }
     }
@@ -459,72 +448,123 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollElements.forEach((el) => scrollObserver.observe(el));
   }
 
-  // 기존 헤더 하단 가로선을 활용한 스크롤 프로그레스 바
+  // =========================================
+  // 상단 바 전체 섹션 이름 네비게이션 & 상태표시줄(프로그레스 바) 동기화
+  // 스크롤 중인 섹션만 검은 글씨(active), 상태표시줄도 현재 보고 있는 섹션 텍스트 위치에 정확히 일치
+  // =========================================
   const progressBar = document.getElementById("scrollProgressBar");
-  if (progressBar) {
-    function updateProgress() {
-      const winScroll = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (height > 0) {
-        const scrolled = (winScroll / height) * 100;
-        progressBar.style.width = scrolled + "%";
-      }
-    }
+  const headerNav = document.getElementById("headerNav");
+  const headerNavLinks = document.querySelectorAll(".header-nav-link");
 
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-    document.addEventListener("scroll", updateProgress, { passive: true });
-    updateProgress();
-  }
+  if (headerNavLinks.length > 0) {
+    const sectionNavMapping = [
+      { id: "ceoSection", target: "ceoSection" },
+      { id: "historySection", target: "historySection" },
+      { id: "timelineScrollSection", target: "historySection" },
+      { id: "visionSection", target: "visionSection" },
+      { id: "boxMotionSection", target: "visionSection" },
+      { id: "rdSection", target: "rdSection" },
+      { id: "haccpTechSection", target: "haccpTechSection" },
+      { id: "safetySection", target: "safetySection" },
+      { id: "brandSection", target: "brandSection" },
+      { id: "jeongchaeumSection", target: "brandSection" },
+      { id: "hanwooSection", target: "brandSection" },
+      { id: "partnersSection", target: "partnersSection" },
+      { id: "salesSection", target: "salesSection" },
+      { id: "trustSloganSection", target: "salesSection" }
+    ];
 
-  // 상단 바 중앙에 현재 스크롤 중인 섹션의 소제목(영문 서브타이틀) 표시
-  const headerCurrentSection = document.getElementById("headerCurrentSection");
-  if (headerCurrentSection) {
-    const sectionTitleGroups = document.querySelectorAll(".section-title-group");
+    function updateNavAndProgress() {
+      const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+      const topHeader = document.querySelector(".top-header");
+      const headerHeight = topHeader ? topHeader.offsetHeight : 70;
+      const scanLine = headerHeight + 90; // 헤더 바로 아래 감지선
 
-    function updateCurrentSectionHeader() {
-      // 최상단 히어로 슬라이더 영역에 있을 때는 숨김
-      if (window.scrollY < 260) {
-        headerCurrentSection.classList.remove("visible");
-        return;
-      }
+      let activeTarget = null;
 
-      let activeSubtitle = "";
-      const headerThreshold = 180; // 상단 헤더 기준 위치
+      const ceoEl = document.getElementById("ceoSection");
+      const ceoTop = ceoEl ? ceoEl.getBoundingClientRect().top : 9999;
 
-      sectionTitleGroups.forEach((group) => {
-        const section = group.closest("section") || group.parentElement;
-        const rect = section.getBoundingClientRect();
-
-        if (rect.top <= headerThreshold && rect.bottom >= headerThreshold) {
-          const subEl = group.querySelector(".section-subtitle-en");
-          if (subEl && subEl.textContent.trim()) {
-            activeSubtitle = subEl.textContent.trim();
+      // 1. 최상단 히어로 슬라이더 영역 판별
+      if (ceoTop > scanLine + 50) {
+        activeTarget = null;
+      } else if ((window.innerHeight + scrollY) >= document.documentElement.scrollHeight - 50) {
+        // 페이지 맨 끝(푸터 부근)
+        activeTarget = "salesSection";
+      } else {
+        // 모든 섹션 중 상단 감지선(scanLine) 이하로 들어온 가장 최신 섹션 선택
+        for (let i = sectionNavMapping.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sectionNavMapping[i].id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= scanLine) {
+              activeTarget = sectionNavMapping[i].target;
+              break;
+            }
           }
+        }
+      }
+
+      // 2. 네비게이션 텍스트 활성화 (현재 섹션만 검은 글씨, 나머지 회색)
+      let activeLinkEl = null;
+      headerNavLinks.forEach((link) => {
+        const target = link.getAttribute("data-target");
+        if (activeTarget && target === activeTarget) {
+          link.classList.add("active");
+          activeLinkEl = link;
+        } else {
+          link.classList.remove("active");
         }
       });
 
-      // 엔딩 슬로건 섹션 체크
-      const sloganSection = document.getElementById("trustSloganSection");
-      if (sloganSection) {
-        const sRect = sloganSection.getBoundingClientRect();
-        if (sRect.top <= headerThreshold && sRect.bottom >= headerThreshold) {
-          activeSubtitle = "TRUST-FILLED TABLE";
+      // 가로 스크롤 영역일 경우 현재 활성 탭이 화면 밖이면 부드럽게 스크롤 맞춤
+      if (activeLinkEl && headerNav) {
+        const navRect = headerNav.getBoundingClientRect();
+        const linkRect = activeLinkEl.getBoundingClientRect();
+        if (linkRect.left < navRect.left + 10 || linkRect.right > navRect.right - 10) {
+          activeLinkEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
         }
       }
 
-      if (activeSubtitle) {
-        if (headerCurrentSection.textContent !== activeSubtitle) {
-          headerCurrentSection.textContent = activeSubtitle;
+      // 3. 상태표시줄(프로그레스 바): zoom 1.1 스케일 보정을 적용하여 활성 텍스트의 정확한 중간(중앙 X좌표)에 완벽 일치
+      if (progressBar) {
+        if (!activeLinkEl || !activeTarget || !topHeader) {
+          progressBar.style.width = "0px";
+        } else {
+          const headerRect = topHeader.getBoundingClientRect();
+          const linkRect = activeLinkEl.getBoundingClientRect();
+          
+          // 뷰포트 상에서 헤더 좌측 끝부터 텍스트 가로 정중앙까지의 실제 픽셀 거리
+          const realPixelDist = (linkRect.left + linkRect.width / 2) - headerRect.left;
+          
+          // .main-wrapper의 zoom: 1.1 스케일 왜곡 역보정
+          const mainWrapper = document.querySelector(".main-wrapper");
+          const zoomFactor = mainWrapper ? (parseFloat(getComputedStyle(mainWrapper).zoom) || 1.1) : 1;
+          
+          const adjustedWidth = realPixelDist / zoomFactor;
+          progressBar.style.width = Math.max(0, Math.round(adjustedWidth)) + "px";
         }
-        headerCurrentSection.classList.add("visible");
-      } else {
-        headerCurrentSection.classList.remove("visible");
       }
     }
 
-    window.addEventListener("scroll", updateCurrentSectionHeader, { passive: true });
-    updateCurrentSectionHeader();
+    // 상단 바 메뉴 클릭 시 부드럽게 해당 섹션으로 스크롤 이동
+    headerNavLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const targetId = link.getAttribute("data-target");
+        if (targetId) {
+          e.preventDefault();
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            smoothScrollToElement(targetEl);
+          }
+        }
+      });
+    });
+
+    window.addEventListener("scroll", updateNavAndProgress, { passive: true });
+    window.addEventListener("resize", updateNavAndProgress);
+    document.addEventListener("scroll", updateNavAndProgress, { passive: true });
+    updateNavAndProgress();
   }
 
   // 기하학적 네모 모듈 및 기업 전략 텍스트 스크롤 인터랙션 제어
@@ -686,6 +726,73 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateTriangleMotion, { passive: true });
     window.addEventListener("resize", updateTriangleMotion);
     updateTriangleMotion();
+  }
+
+  // =========================================
+  // 운영 브랜드 (정채움) 인트로 타이틀 -> 쇼케이스 체류 전환 인터랙션
+  // =========================================
+  const brandSection = document.getElementById("brandSection");
+  const brandTitleStage = document.getElementById("brandTitleStage");
+  const brandShowcaseContainer = document.getElementById("brandShowcaseContainer");
+
+  if (brandSection && brandTitleStage && brandShowcaseContainer) {
+    let brandAutoTimer = null;
+    let hasAutoTriggered = false;
+
+    function updateBrandSectionMotion() {
+      const rect = brandSection.getBoundingClientRect();
+      const sectionHeight = brandSection.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollDistance = -rect.top;
+      const totalScrollable = sectionHeight - windowHeight;
+
+      if (totalScrollable <= 0) {
+        brandTitleStage.classList.add("hidden");
+        brandShowcaseContainer.classList.add("visible");
+        return;
+      }
+
+      // 섹션이 화면에 진입했는지 확인
+      const isEntered = rect.top <= windowHeight * 0.4 && rect.bottom >= windowHeight * 0.2;
+      const progress = Math.max(0, Math.min(1, scrollDistance / totalScrollable));
+
+      if (progress < 0.18 && !hasAutoTriggered) {
+        brandTitleStage.classList.remove("hidden");
+        brandShowcaseContainer.classList.remove("visible");
+
+        // 진입 시 사용자가 가만히 머물 경우 2초 후 자동 전환 타이머 동작
+        if (isEntered && !brandAutoTimer) {
+          brandAutoTimer = setTimeout(() => {
+            hasAutoTriggered = true;
+            brandTitleStage.classList.add("hidden");
+            brandShowcaseContainer.classList.add("visible");
+          }, 2000);
+        }
+      } else {
+        // 스크롤이 진행되었거나 타이머 완료 시 전환
+        if (brandAutoTimer) {
+          clearTimeout(brandAutoTimer);
+          brandAutoTimer = null;
+        }
+        brandTitleStage.classList.add("hidden");
+        brandShowcaseContainer.classList.add("visible");
+      }
+
+      // 섹션에서 완전히 벗어나 위로 올라갔을 때 리셋
+      if (rect.top > windowHeight * 0.7) {
+        hasAutoTriggered = false;
+        if (brandAutoTimer) {
+          clearTimeout(brandAutoTimer);
+          brandAutoTimer = null;
+        }
+        brandTitleStage.classList.remove("hidden");
+        brandShowcaseContainer.classList.remove("visible");
+      }
+    }
+
+    window.addEventListener("scroll", updateBrandSectionMotion, { passive: true });
+    window.addEventListener("resize", updateBrandSectionMotion);
+    updateBrandSectionMotion();
   }
 
   // =========================================
