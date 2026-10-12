@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const dots = Array.from(document.querySelectorAll(".dot"));
+  const barWrapper = document.getElementById("sliderBar");
+  const barThumb = document.getElementById("sliderBarThumb");
 
   if (!track || slides.length === 0) return;
 
@@ -22,7 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevIndex = currentIndex;
     currentIndex = (index + totalSlides) % totalSlides;
 
-    // 도트 활성화 상태 업데이트
+    // 인디케이터 바 위치 업데이트 (0%, 100%, 200%)
+    if (barThumb) {
+      barThumb.style.transform = `translateX(${currentIndex * 100}%)`;
+    }
+
+    // 도트 활성화 상태 업데이트 (호환용)
     dots.forEach((dot, idx) => {
       dot.classList.toggle("active", idx === currentIndex);
     });
@@ -54,14 +61,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 인디케이터 도트 클릭 이벤트
+  // 인디케이터 바 클릭 이벤트
+  if (barWrapper) {
+    barWrapper.addEventListener("click", (e) => {
+      const trackElem = barWrapper.querySelector(".slider-bar-track") || barWrapper;
+      const rect = trackElem.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const fraction = Math.max(0, Math.min(0.999, clickX / rect.width));
+      const targetIndex = Math.floor(fraction * totalSlides);
+      resetAutoSlide();
+      updateSlider(targetIndex);
+    });
+  }
+
+  // 인디케이터 도트 클릭 이벤트 (호환용)
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
       const targetIndex = parseInt(dot.getAttribute("data-index"), 10);
       resetAutoSlide();
       updateSlider(targetIndex);
     });
-  } );
+  });
 
   // 자동 넘김 설정 (2.5초마다 부드럽게 넘김)
   function startAutoSlide() {
@@ -651,6 +671,69 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBoxMotion();
   }
 
+  // =========================================
+  // 모바일 전용: 비전 섹션 2단계 스크롤 체류 인터랙션
+  // 1단계(0~30%): "정채움 비전" 단독 화면 중앙 체류
+  // 전환(30~55%): "유통의 신뢰" 자연스러운 상승 전환
+  // 2단계(55~100%): "정채움 비전" + "유통의 신뢰" 첫 번째 사진 상태로 동시 체류
+  // 100% 이후: 다음 섹션(R&D)으로 통과 (R&D는 체류 없음)
+  // =========================================
+  const mobileVisionSection = document.getElementById("visionSection");
+  const mobileVisionContentWrapper = mobileVisionSection
+    ? mobileVisionSection.querySelector(".vision-content-wrapper")
+    : null;
+  const mobileStrategyContainer = document.getElementById("visionMobileStrategyContainer");
+
+  function updateMobileVisionInteraction() {
+    if (!mobileVisionSection || !mobileVisionContentWrapper || !mobileStrategyContainer) return;
+
+    if (window.innerWidth > 768) {
+      mobileVisionContentWrapper.style.transform = "";
+      mobileStrategyContainer.style.transform = "";
+      mobileStrategyContainer.style.opacity = "";
+      mobileStrategyContainer.style.pointerEvents = "";
+      return;
+    }
+
+    const rect = mobileVisionSection.getBoundingClientRect();
+    const sectionHeight = mobileVisionSection.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollDistance = -rect.top;
+    const totalScrollable = sectionHeight - windowHeight;
+
+    if (totalScrollable <= 0) return;
+
+    const progress = Math.max(0, Math.min(1, scrollDistance / totalScrollable));
+
+    if (progress < 0.30) {
+      // 1단계: 정채움 비전 단독 체류 (화면 중앙 정렬)
+      mobileVisionContentWrapper.style.transform = "translateY(55px)";
+      mobileStrategyContainer.style.transform = "translateY(80px)";
+      mobileStrategyContainer.style.opacity = "0";
+      mobileStrategyContainer.style.pointerEvents = "none";
+    } else if (progress < 0.55) {
+      // 전환: 0.30 ~ 0.55 구간 부드러운 이징 이동
+      const t = (progress - 0.30) / (0.55 - 0.30);
+      const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const vY = 55 * (1 - ease);
+      const sY = 80 * (1 - ease);
+      mobileVisionContentWrapper.style.transform = `translateY(${vY}px)`;
+      mobileStrategyContainer.style.transform = `translateY(${sY}px)`;
+      mobileStrategyContainer.style.opacity = ease.toFixed(3);
+      mobileStrategyContainer.style.pointerEvents = ease > 0.5 ? "auto" : "none";
+    } else {
+      // 2단계: 첫 번째 사진 레이아웃으로 동시 체류 (0.55 ~ 1.00 완벽 고정)
+      mobileVisionContentWrapper.style.transform = "translateY(0px)";
+      mobileStrategyContainer.style.transform = "translateY(0px)";
+      mobileStrategyContainer.style.opacity = "1";
+      mobileStrategyContainer.style.pointerEvents = "auto";
+    }
+  }
+
+  window.addEventListener("scroll", updateMobileVisionInteraction, { passive: true });
+  window.addEventListener("resize", updateMobileVisionInteraction);
+  updateMobileVisionInteraction();
+
   // 한우고집쟁이 기하학적 세모 모듈 및 핵심역량 텍스트 스크롤 인터랙션 제어
   const hanwooMotionSection = document.getElementById("hanwooMotionSection");
   const triangleStage = document.getElementById("triangleStage");
@@ -1043,6 +1126,30 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", checkSalesSticky, { passive: true });
     window.addEventListener("resize", checkSalesSticky, { passive: true });
     checkSalesSticky();
+  }
+
+  // ==========================================
+  // 플로팅 맨 위로 이동 (Scroll To Top) 버튼
+  // ==========================================
+  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+  if (scrollToTopBtn) {
+    const handleScrollBtnVisibility = () => {
+      if (window.scrollY > 280) {
+        scrollToTopBtn.classList.add("visible");
+      } else {
+        scrollToTopBtn.classList.remove("visible");
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollBtnVisibility, { passive: true });
+    handleScrollBtnVisibility();
+
+    scrollToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
   }
 });
 

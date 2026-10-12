@@ -7,6 +7,8 @@
 html {
   width: 100%;
   min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -17,6 +19,8 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* 인트로 오버레이 */
@@ -247,7 +251,7 @@ section {
   line-height: 1;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 9999px;
   letter-spacing: -0.6px;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   white-space: nowrap;
@@ -630,7 +634,7 @@ section[id],
   }
 }
 
-/* 메인 비주얼 영역 (슬라이더) - PC 화면 적정 크기 조절 */
+/* 메인 비주얼 영역 (슬라이더) - 꽉 차는 배너 (1920x800 원본 비율 유지) */
 .hero-section {
   position: relative;
   width: 100%;
@@ -638,7 +642,7 @@ section[id],
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 16px;
+  padding: 0;
   background-color: #ffffff;
   box-sizing: border-box;
 }
@@ -646,7 +650,7 @@ section[id],
 .hero-wrapper {
   position: relative;
   width: 100%;
-  max-width: min(1440px, calc((100vh - 160px) * (2880 / 1786)));
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -665,11 +669,10 @@ section[id],
   position: relative;
   flex: 1;
   width: 100%;
-  max-height: calc(100vh - 160px);
   overflow: hidden;
   border-radius: 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  aspect-ratio: 2880 / 1786;
+  box-shadow: none;
+  aspect-ratio: 1920 / 800;
   background-color: transparent;
 }
 
@@ -709,7 +712,7 @@ section[id],
   display: block;
   user-select: none;
   border-radius: 0;
-  object-fit: contain !important;
+  object-fit: cover !important;
   object-position: center center !important;
 }
 
@@ -760,32 +763,40 @@ section[id],
   }
 }
 
-/* 하단 인디케이터 (사진 아래 위치하는 동그란 점 3개) */
-.slider-dots {
+/* 하단 인디케이터 바 (사진 아래 위치하는 슬림 프로그레스 바) */
+.slider-bar-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-top: 14px;
+  margin-top: 18px;
+  cursor: pointer;
+  padding: 8px 16px;
   z-index: 10;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #d6d6d6;
-  /* 다른 부분: 연회색 동그라미 */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.slider-bar-track {
+  position: relative;
+  width: 160px;
+  height: 3px;
+  background-color: #e5e5e5;
+  border-radius: 99px;
+  overflow: hidden;
 }
 
-.dot.active {
-  background-color: #4a4a4a;
-  /* 현재 사진 부분: 짙은 회색 동그라미 */
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.slider-bar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33.333%;
+  height: 100%;
+  background-color: #333333;
+  border-radius: 99px;
+  transform: translateX(0%);
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slider-dots {
+  display: none !important;
 }
 
 /* =========================================
@@ -796,7 +807,7 @@ section[id],
   min-height: 85vh;
   background-color: #ffffff;
   padding: 180px 24px;
-  margin-top: 100px;
+  margin-top: 180px;
   margin-bottom: 200px;
   display: flex;
   justify-content: center;
@@ -847,13 +858,13 @@ section[id],
 /* 시작 따옴표: 텍스트에 더 가깝게 밀착 및 레이지 로딩 */
 .quote-mark.left-quote {
   align-self: flex-start;
-  transform: translate(16px, -10px);
+  transform: translate(32px, 2px);
   transition-delay: 0.1s;
 }
 
 .hero-quote-container.visible .quote-mark.left-quote {
   opacity: 0.45;
-  transform: translate(16px, -20px);
+  transform: translate(32px, 2px);
 }
 
 /* 끝 따옴표 레이지 로딩 */
@@ -1433,9 +1444,9 @@ section[id],
 }
 
 .hanwoo-hero-thumb-box {
-  width: 200px;
-  height: 200px;
-  min-width: 200px;
+  width: 280px;
+  height: 280px;
+  min-width: 280px;
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   overflow: hidden;
@@ -2038,7 +2049,8 @@ section[id],
   }
 
   .vision-section-title {
-    align-self: flex-start;
+    align-self: center;
+    text-align: center;
     font-size: 30px;
   }
 
@@ -2443,6 +2455,11 @@ section[id],
   max-width: 1120px;
   margin: 0 auto;
   gap: 56px;
+}
+
+/* 모바일 전용 2단계 체류 컨테이너 (PC 데스크톱에서는 완전 숨김) */
+.vision-mobile-strategy-container {
+  display: none !important;
 }
 
 /* 기업 전략 텍스트 스테이지 */
@@ -3006,6 +3023,48 @@ section[id],
   opacity: 0.15;
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* 모바일 전용 연혁 리스트 (PC에서는 숨김) */
+.timeline-mobile-list {
+  display: none;
+}
+
+/* 플로팅 탑 버튼 (홈페이지 맨 위로 이동) */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 22px;
+  width: 46px;
+  height: 46px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+}
+
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #f7f5f2;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+}
+
+.scroll-to-top-btn:active {
+  transform: scale(0.94);
 }
 
 /* =========================================
@@ -4418,20 +4477,19 @@ section[id],
   position: relative;
 }
 
-/* 텍스트 뒤에 겹치는 은은한 회색 정채움 로고 워터마크 */
+/* 슬로건 상단 검은색 정채움 로고 */
+.trust-slogan-top-logo,
 .trust-slogan-bg-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(170px, 20vw, 260px);
-  /* 로고 크기 축소 */
+  position: static;
+  transform: none;
+  width: clamp(70px, 6.5vw, 95px);
   height: auto;
-  opacity: 0.05;
-  /* 더욱 은은하고 옅은 회색 워터마크 효과 */
-  filter: grayscale(100%);
-  pointer-events: none;
-  z-index: 1;
+  display: block;
+  margin: 0 auto 24px auto;
+  opacity: 1;
+  filter: brightness(0);
+  pointer-events: auto;
+  z-index: 2;
   user-select: none;
 }
 
@@ -4480,8 +4538,10 @@ section[id],
     margin-top: 40px;
   }
 
-  .trust-slogan-bg-logo {
-    width: 150px;
+  .trust-slogan-bg-logo,
+  .trust-slogan-top-logo {
+    width: 60px !important;
+    margin-bottom: 18px !important;
   }
 
   .trust-slogan-title {
@@ -4649,6 +4709,51 @@ section[id],
   text-align: left;
 }
 
+/* PC 데스크톱에서는 모바일 전용 연혁 리스트 숨김 */
+.timeline-mobile-list {
+  display: none;
+}
+
+/* 우측 하단 플로팅 탑(Scroll to Top) 버튼 기본 스타일 */
+.scroll-to-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e0d7ce;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+  outline: none;
+}
+
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #faf7f4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.scroll-to-top-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
 /* =========================================
    모바일 전용 반응형 스타일 (화면 너비 768px 이하에만 적용)
    * PC 버전 레이아웃 구조(좌우 2단 배치, 카드 그리드 등)를 그대로 유지하면서 모바일에 맞게 완벽 비례 축소 & 중앙 정렬 *
@@ -4684,9 +4789,9 @@ section[id],
     transform: translateY(0) !important;
   }
 
-  /* 상단 헤더: 모바일 최적 높이(56px) 및 로고와 메뉴 버튼만 깔끔하게 양끝 정렬 */
+  /* 상단 헤더: 두툼하고 고급스러운 모바일 상단 바 (70px) */
   .top-header {
-    height: 56px !important;
+    height: 70px !important;
     padding: 0 20px !important;
     width: 100% !important;
     max-width: 100vw !important;
@@ -4705,9 +4810,9 @@ section[id],
   }
 
   .header-logo {
-    height: 28px !important;
+    height: 27px !important;
     width: auto !important;
-    max-width: 115px !important;
+    max-width: 110px !important;
     display: block !important;
     object-fit: contain !important;
   }
@@ -4716,8 +4821,8 @@ section[id],
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 2.5px !important;
-    width: 82px !important;
+    gap: 3px !important;
+    width: 90px !important;
   }
 
   .header-store-btn {
@@ -4726,11 +4831,11 @@ section[id],
     justify-content: center !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    height: 20px !important;
-    padding: 0 2px !important;
-    font-size: 8.5px !important;
-    letter-spacing: -0.6px !important;
-    border-radius: 2px !important;
+    height: 23px !important;
+    padding: 0 4px !important;
+    font-size: 9.5px !important;
+    letter-spacing: -0.5px !important;
+    border-radius: 9999px !important;
     box-shadow: none !important;
     transform: none !important;
     text-align: center !important;
@@ -4742,10 +4847,10 @@ section[id],
     display: none !important;
   }
 
-  /* 1. 히어로 섹션: 상단 56px 헤더에 맞춘 여백 */
+  /* 1. 히어로 섹션: 상단 70px 두툼한 헤더에 맞춘 여백 */
   .hero-section {
-    margin-top: 56px !important;
-    padding: 0 12px 16px !important;
+    margin-top: 70px !important;
+    padding: 0 0 16px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -4757,45 +4862,45 @@ section[id],
 
   .hero-slider-row {
     width: 100% !important;
-    gap: 8px !important;
+    gap: 0 !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
   .slider-container {
     width: 100% !important;
-    aspect-ratio: 16 / 9 !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    aspect-ratio: 1920 / 800 !important;
+    box-shadow: none !important;
   }
 
   .hero-bg {
     width: 100% !important;
     height: 100% !important;
-    object-fit: fill !important;
+    object-fit: cover !important;
     object-position: center center !important;
   }
 
   .slider-btn {
-    width: 28px !important;
-    height: 28px !important;
-    flex-shrink: 0 !important;
+    display: none !important;
   }
 
-  .slider-btn svg {
-    width: 16px !important;
-    height: 16px !important;
-  }
-
-  .slider-dots {
+  .slider-bar-wrapper {
     margin-top: 10px !important;
+    padding: 4px 0 !important;
   }
 
-  /* 2. 슬로건 인용구 섹션: 적정 마진 적용 */
+  .slider-bar-track {
+    width: 120px !important;
+    height: 3px !important;
+  }
+
+  /* 2. 슬로건 인용구 섹션: 첫 화면에서 CEO 섹션 가림 및 여백 최적화 */
   .hero-quote-section {
-    min-height: auto !important;
-    padding: 34px 14px 28px 14px !important;
-    margin-top: 10px !important;
-    margin-bottom: 36px !important;
+    min-height: calc(100vh - 70px - (100vw * 800 / 1920) - 34px) !important;
+    min-height: calc(100dvh - 70px - (100vw * 800 / 1920) - 34px) !important;
+    padding: 24px 14px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -4810,27 +4915,31 @@ section[id],
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
     text-align: center !important;
     margin: 0 auto !important;
   }
 
   .quote-mark {
-    font-size: 48px !important;
+    font-size: 44px !important;
     line-height: 0.6 !important;
     flex-shrink: 0 !important;
   }
 
   .quote-mark.left-quote {
-    transform: translate(2px, -8px) !important;
+    align-self: flex-start !important;
+    transform: translate(18px, 0px) !important;
+    margin-right: -12px !important;
   }
 
   .quote-mark.right-quote {
+    align-self: flex-end !important;
     transform: translate(-2px, 8px) !important;
   }
 
   .hero-quote-text {
-    font-size: 14px !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
     line-height: 1.65 !important;
     letter-spacing: -0.3px !important;
     text-align: center !important;
@@ -4838,6 +4947,8 @@ section[id],
     flex: 1 !important;
     max-width: 280px !important;
     margin: 0 !important;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
 
   /* 공통 섹션 소제목 및 타이틀 모바일 통일 (가운데 정렬, 크기 균일) */
@@ -4867,7 +4978,6 @@ section[id],
     margin: 0 auto 4px auto !important;
   }
 
-  .ceo-main-title,
   .ceo-section-title,
   .brand-stage-title,
   .brand-section-title,
@@ -4877,6 +4987,27 @@ section[id],
     font-size: 22px !important;
     font-weight: 800 !important;
     letter-spacing: -0.4px !important;
+    color: #111111 !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  /* CEO 소개 섹션 타이틀: 위쪽으로 대폭 이동 및 아래 요소와 넉넉한 간격(60px) 확보 (모바일 전용) */
+  .ceo-header-title-group {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-top: -25px !important;
+    margin-bottom: 38px !important;
+  }
+
+  .ceo-main-title {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
     color: #111111 !important;
     text-align: center !important;
     margin: 0 auto !important;
@@ -4896,10 +5027,10 @@ section[id],
 
   .ceo-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
-    padding: 10px 14px !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
+    padding: 8px 14px 20px 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -4909,37 +5040,39 @@ section[id],
     overflow: hidden !important;
   }
 
+  /* CEO 소개 레이아웃: 상단 가운데 슬로건 + 중단 좌우 2열(좌: 사장님 사진 / 우: 설명문) + 하단 가로 3개 지표 박스 */
   .ceo-container {
-    display: flex !important;
-    flex-direction: column !important;
+    display: grid !important;
+    grid-template-columns: clamp(105px, 35%, 128px) 1fr !important;
+    column-gap: 14px !important;
+    row-gap: 8px !important;
     align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    gap: 10px !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 440px !important;
     margin: 0 auto !important;
-    padding: 0 6px !important;
+    padding: 0 12px !important;
     box-sizing: border-box !important;
   }
 
+  /* 좌측 열: 사장님 이미지 카드 + 바로 아래 '총괄 CEO 정한철' 캡션 */
   .ceo-image-wrapper {
-    flex: 0 0 auto !important;
-    max-width: 130px !important;
+    grid-column: 1 / 2 !important;
+    grid-row: 2 / 3 !important;
     width: 100% !important;
-    margin: 0 auto !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
   .ceo-image-card {
     width: 100% !important;
-    aspect-ratio: 1 / 1.1 !important;
+    aspect-ratio: 1 / 1.15 !important;
     border-radius: 6px !important;
     overflow: hidden !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -4956,79 +5089,94 @@ section[id],
   }
 
   .ceo-caption {
-    font-size: 10.5px !important;
-    font-weight: 600 !important;
-    color: #8c827a !important;
-    margin-top: 6px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #554e48 !important;
+    margin-top: 7px !important;
     text-align: center !important;
     width: 100% !important;
     white-space: nowrap !important;
+    letter-spacing: -0.3px !important;
   }
 
+  /* 우측 열 텍스트 래퍼 */
   .ceo-text-wrapper {
-    flex: 0 0 auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    gap: 0 !important;
+    display: contents !important;
   }
 
+  /* 상단 슬로건 + 설명문 래퍼 해제 */
+  .ceo-quote-desc-box {
+    display: contents !important;
+  }
+
+  /* 정직한 먹거리 슬로건: 맨 위 전폭 가운데 정렬 (크기 확대 & 아래와 밀착) */
   .ceo-quote {
-    font-size: 17.5px !important;
+    grid-column: 1 / 3 !important;
+    grid-row: 1 / 2 !important;
+    font-size: 17px !important;
     font-weight: 800 !important;
     color: #2b2520 !important;
-    line-height: 1.35 !important;
+    line-height: 1.4 !important;
     text-align: center !important;
     white-space: normal !important;
     word-break: keep-all !important;
-    margin: 0 0 8px 0 !important;
+    margin: 0 auto 0 auto !important;
+    letter-spacing: -0.4px !important;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
 
   .ceo-description-group {
+    grid-column: 2 / 3 !important;
+    grid-row: 2 / 3 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
-    margin-bottom: 10px !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    margin: 0 !important;
     width: 100% !important;
+    text-align: left !important;
   }
 
   .ceo-description {
-    font-size: 10px !important;
+    font-size: 9.5px !important;
+    font-weight: 500 !important;
     color: #554e48 !important;
     line-height: 1.45 !important;
-    text-align: center !important;
+    text-align: left !important;
     word-break: keep-all !important;
-    margin: 0 auto !important;
-    max-width: 320px !important;
+    margin: 0 !important;
+    letter-spacing: -0.3px !important;
   }
 
+  /* 하단 열: 하늘색 박스 3개 (17년, 225호, 명장) 전폭 가로 배치 (세로 크기 확장) */
   .ceo-stats-row {
+    grid-column: 1 / 3 !important;
+    grid-row: 3 / 4 !important;
     display: flex !important;
     flex-direction: row !important;
     gap: 6px !important;
     width: 100% !important;
+    margin-top: 5px !important;
   }
 
   .ceo-stat-card {
     flex: 1 !important;
     background: #ffffff !important;
     border-radius: 6px !important;
-    padding: 8px 4px !important;
+    padding: 13px 4px !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    gap: 2px !important;
+    gap: 3px !important;
     border: 1px solid rgba(0, 0, 0, 0.02) !important;
   }
 
   .ceo-stat-num {
-    font-size: 14.5px !important;
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: #76614f !important;
     line-height: 1.1 !important;
@@ -5056,9 +5204,9 @@ section[id],
 
   .brand-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
     padding: 10px 12px !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -5108,14 +5256,16 @@ section[id],
     margin: 0 auto 4px auto !important;
   }
 
-  .brand-main-thumb-box {
+  .brand-main-thumb-box,
+  .hanwoo-hero-thumb-box {
     width: 100px !important;
     height: 100px !important;
     min-width: 100px !important;
     border-radius: 6px !important;
   }
 
-  .brand-main-thumb {
+  .brand-main-thumb,
+  .hanwoo-hero-thumb {
     border-radius: 6px !important;
   }
 
@@ -5202,22 +5352,24 @@ section[id],
   }
 
   /* 5. 비전 섹션: 컴퓨터 비율 그대로 중앙에 한눈에 나오도록 축소 정렬 + 스크롤 체류(Sticky) 적용 */
+  /* 5. 비전 섹션: 2단계 스크롤 체류(Sticky) 적용 (정채움 비전 체류 -> 유통의 신뢰 상승 후 동시 체류) */
   .vision-section,
   .vision-section.hanwoo-vision-section {
-    min-height: 230vh !important;
+    min-height: 280vh !important;
     height: auto !important;
     position: relative !important;
     padding: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background-color: #ece4de !important;
   }
 
   .vision-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
-    padding: 10px 14px !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
+    padding: 10px 14px 20px 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -5225,6 +5377,7 @@ section[id],
     justify-content: center !important;
     align-items: center !important;
     overflow: hidden !important;
+    background-color: #ece4de !important;
   }
 
   .vision-content-wrapper {
@@ -5234,16 +5387,40 @@ section[id],
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
+    will-change: transform !important;
   }
 
   .vision-content-wrapper .section-title-group {
-    margin-bottom: 12px !important;
+    margin-top: -46px !important;
+    margin-bottom: 36px !important;
     text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .vision-content-wrapper .section-subtitle-en {
+    font-size: 11px !important;
+    letter-spacing: 2px !important;
+    color: #888888 !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+    text-align: center !important;
+    align-self: center !important;
   }
 
   .vision-section-title {
-    font-size: 22px !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    color: #111111 !important;
+    letter-spacing: -0.5px !important;
     text-align: center !important;
+    line-height: 1.2 !important;
+    margin: 0 auto !important;
+    align-self: center !important;
+    width: 100% !important;
   }
 
   .vision-card {
@@ -5257,205 +5434,298 @@ section[id],
   }
 
   .vision-card-logo {
-    width: 48px !important;
-    margin: 0 auto 8px auto !important;
+    width: 52px !important;
+    margin: 0 auto 16px auto !important;
   }
 
   .vision-card-logo.hanwoo-logo {
     width: 100px !important;
-    margin: 0 auto 8px auto !important;
+    margin: 0 auto 16px auto !important;
   }
 
   .vision-card-heading {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+    letter-spacing: 1px !important;
+    word-break: keep-all !important;
+    margin-bottom: 8px !important;
+  }
+
+  .hanwoo-vision-section .vision-card-heading {
     font-size: 15px !important;
     line-height: 1.35 !important;
     text-align: center !important;
     word-break: keep-all !important;
-    margin-bottom: 4px !important;
-  }
-
-  .hanwoo-vision-section .vision-card-heading {
-    font-size: 14.5px !important;
-    line-height: 1.35 !important;
-    text-align: center !important;
-    word-break: keep-all !important;
-    margin-bottom: 6px !important;
-  }
-
-  .vision-card-subheading {
-    font-size: 12.5px !important;
-    text-align: center !important;
     margin-bottom: 8px !important;
   }
 
+  .vision-card-subheading {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #333333 !important;
+    text-align: center !important;
+    margin-bottom: 16px !important;
+  }
+
   .vision-card-divider {
-    margin: 0 auto 10px auto !important;
-    width: 32px !important;
+    margin: 0 auto 18px auto !important;
+    width: 36px !important;
+    height: 2.5px !important;
+    background-color: #111111 !important;
   }
 
   .vision-card-desc {
-    font-size: 11.5px !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    font-weight: 600 !important;
+    color: #333333 !important;
+    text-align: center !important;
+    word-break: keep-all !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+
+  /* 6. 모바일 전용 유통의 신뢰 영역 (비전 스티키 내 통합 표시 & 뒤에 선 없는 매끄러운 배경) */
+  .vision-mobile-strategy-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 14px !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    will-change: transform, opacity !important;
+  }
+
+  .vision-mobile-strategy-container .motion-boxes-container {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 auto 10px auto !important;
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transform: scale(0.72) !important;
+    transform-origin: center center !important;
+  }
+
+  .vision-mobile-strategy-container .motion-box.b1 {
+    position: absolute !important;
+    width: 28px !important;
+    height: 28px !important;
+    background-color: #111111 !important;
+    transform: translate(0, 0) rotate(45deg) !important;
+    opacity: 1 !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-text-stage {
+    position: relative !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-item {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-left {
+    flex: none !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 3px !important;
+    margin: 0 auto !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-en-title {
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    color: #111111 !important;
+    letter-spacing: -0.4px !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    word-break: keep-all !important;
+    width: 100% !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-kr-subtitle {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    letter-spacing: -0.3px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    line-height: 1.3 !important;
+    width: 100% !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-right {
+    flex: none !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 4px !important;
+    padding-top: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-desc {
+    font-size: 12.5px !important;
+    font-weight: 500 !important;
+    color: #444444 !important;
     line-height: 1.55 !important;
     text-align: center !important;
     word-break: keep-all !important;
-    max-width: 300px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  /* 모바일에서는 독립 boxMotionSection을 숨겨 중복 노출 및 배경 경계선 원천 방지 */
+  #boxMotionSection {
+    display: none !important;
+  }
+
+  /* 텍스트 잘림 방지 및 문단 가운데 정렬 완벽 적용 */
+  .strategy-interactive-container .mask-box {
+    overflow: visible !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
     margin: 0 auto !important;
   }
 
-  /* 6. 기업 전략 모션 섹션 */
-  .motion-section {
-    min-height: auto !important;
-    height: auto !important;
-    padding: 34px 14px 38px 14px !important;
+  .strategy-interactive-container .mask-line {
+    transform: none !important;
+    opacity: 1 !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    display: block !important;
     width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .motion-sticky-wrapper {
-    position: static !important;
-    top: auto !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-  }
-
-  .motion-boxes-container {
-    width: 240px !important;
-    height: 160px !important;
+    text-align: center !important;
     margin: 0 auto !important;
   }
 
-  /* 7. 연혁 타임라인 섹션: 스크롤 체류 + 현재 활성 항목만 중앙 단독 노출 (불필요한 항목 숨김) */
+  /* 7. 연혁 섹션: 모바일에서는 스크롤 체류/인터랙션 완전 제거 및 사진+세로 리스트 정적 노출 */
   .history-section {
     padding: 0 !important;
+    position: static !important;
   }
 
   .timeline-scroll-section {
-    min-height: 280vh !important;
-    height: auto !important;
-    position: relative !important;
+    display: none !important;
+  }
+
+  .timeline-mobile-list {
+    display: block !important;
     width: 100% !important;
-    box-sizing: border-box !important;
+    padding: 24px 20px 48px 20px !important;
     background-color: #ffffff !important;
-    padding: 0 !important;
-  }
-
-  .timeline-sticky-stage {
-    position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-  }
-
-  .timeline-year-panel {
-    width: 40% !important;
-    height: 100% !important;
-    padding: 0 16px 0 10px !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
     box-sizing: border-box !important;
   }
 
-  .year-center-stage {
+  .timeline-mobile-year-group {
+    padding-bottom: 30px !important;
+    margin-bottom: 34px !important;
+    border-bottom: 1.5px solid #ece4dc !important;
+  }
+
+  .timeline-mobile-year-group:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .timeline-mobile-header {
     display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-end !important;
-    justify-content: center !important;
-    max-width: 100% !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1.5px solid #ebdcd0 !important;
+    margin-bottom: 16px !important;
   }
 
-  .year-slot-current {
-    font-size: 42px !important;
-    font-weight: 900 !important;
-    color: #111111 !important;
-    height: auto !important;
-    line-height: 1 !important;
-    justify-content: flex-end !important;
-    letter-spacing: -1.5px !important;
-  }
-
-  .year-slot-above,
-  .year-slot-below-stack {
+  .timeline-mobile-badge {
     display: none !important;
   }
 
-  .timeline-detail-panel {
-    width: 60% !important;
-    height: 100% !important;
-    padding: 0 16px 0 14px !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    text-align: left !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    position: relative !important;
-    -webkit-mask-image: none !important;
-    mask-image: none !important;
-  }
-
-  .timeline-contents-roller {
-    position: relative !important;
-    top: auto !important;
-    transform: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  /* 현재 활성 항목만 중앙에 보이고, 나머지 연혁 항목은 완전히 숨김 처리 */
-  .timeline-milestone-item {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    text-align: left !important;
-    align-items: flex-start !important;
-    width: 100% !important;
+  .timeline-mobile-year {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #1a1a1a !important;
     margin: 0 !important;
+    padding-left: 8px !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1 !important;
   }
 
-  .timeline-milestone-item.active {
+  .timeline-mobile-items {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    filter: none !important;
-    animation: mobileMilestoneFadeIn 0.3s ease forwards !important;
+    gap: 9px !important;
   }
 
-  .milestone-badge-box {
-    margin: 0 0 4px 0 !important;
-  }
-
-  .milestone-text {
-    font-size: 14.5px !important;
-    font-weight: 700 !important;
-    color: #111111 !important;
-    line-height: 1.4 !important;
+  .timeline-mobile-items li {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #333333 !important;
+    line-height: 1.5 !important;
+    position: relative !important;
+    padding-left: 14px !important;
     word-break: keep-all !important;
     text-align: left !important;
   }
 
-  .milestone-sub-text {
-    font-size: 11px !important;
-    color: #777777 !important;
-    line-height: 1.4 !important;
-    margin-top: 4px !important;
-    word-break: keep-all !important;
+  .timeline-mobile-items li::before {
+    content: "•" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    color: #444444 !important;
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+  }
+
+  .timeline-mobile-items .sub-text {
+    display: block !important;
+    font-size: 12px !important;
+    color: #888888 !important;
+    margin-top: 2px !important;
   }
 
   /* 8. 안전경영 섹션: PC 레이아웃(상단 3개 + 하단 2개 가로 1열) + 스크롤 체류(Sticky) 적용 */
@@ -5471,9 +5741,9 @@ section[id],
 
   .safety-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
     padding: 10px 12px !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -5549,30 +5819,30 @@ section[id],
     line-height: 1.4 !important;
   }
 
-  /* 9. R&D 섹션: PC 레이아웃(좌: 이미지 / 우: 텍스트 카드 가로 나란히) + 스크롤 체류(Sticky) 적용 */
+  /* 9. R&D 섹션: 모바일에서는 스크롤 체류(Sticky)를 걸지 않고 자연스럽게 스크롤 통과 */
   .rd-section {
-    min-height: 240vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 40px 14px 60px 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ffffff !important;
   }
 
   .rd-sticky-wrapper {
-    position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
-    padding: 10px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .rd-content-container {
@@ -5703,9 +5973,9 @@ section[id],
 
   .partners-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
     padding: 10px 12px !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -5746,9 +6016,9 @@ section[id],
 
   .sales-sticky-wrapper {
     position: sticky !important;
-    top: 56px !important;
-    height: calc(100vh - 56px) !important;
-    min-height: calc(100vh - 56px) !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: calc(100vh - 70px) !important;
     padding: 10px 12px !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -5892,18 +6162,18 @@ section[id],
     display: none !important;
   }
 
-  /* 상단 헤더: 로고와 메뉴 버튼만 양끝 정렬 */
+  /* 상단 헤더: 두툼하고 고급스러운 모바일 상단 바 (70px) */
   .top-header {
-    height: 56px !important;
+    height: 70px !important;
     padding: 0 20px !important;
     background-color: #ffffff !important;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) !important;
   }
 
   .header-logo {
-    height: 28px !important;
+    height: 26px !important;
     width: auto !important;
-    max-width: 115px !important;
+    max-width: 105px !important;
     display: block !important;
     object-fit: contain !important;
   }
@@ -5912,8 +6182,8 @@ section[id],
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 2px !important;
-    width: 76px !important;
+    gap: 3px !important;
+    width: 88px !important;
   }
 
   .header-store-btn {
@@ -5922,11 +6192,11 @@ section[id],
     justify-content: center !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    height: 18px !important;
+    height: 22px !important;
     padding: 0 2px !important;
-    font-size: 8px !important;
-    letter-spacing: -0.6px !important;
-    border-radius: 2px !important;
+    font-size: 9px !important;
+    letter-spacing: -0.5px !important;
+    border-radius: 9999px !important;
     box-shadow: none !important;
     transform: none !important;
     text-align: center !important;
@@ -5937,69 +6207,67 @@ section[id],
     display: none !important;
   }
 
-  /* 1. 히어로 섹션 */
+  /* 1. 히어로 섹션: 여백 없이 꽉 찬 풀위드 배너 (70px 헤더 마진) */
   .hero-section {
-    margin-top: 56px !important;
-    padding: 10px 10px 20px 10px !important;
+    margin-top: 70px !important;
+    padding: 0 0 16px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
+  .hero-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
   .hero-slider-row {
     width: 100% !important;
-    gap: 6px !important;
+    gap: 0 !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
   .slider-container {
     width: 100% !important;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 1920 / 800 !important;
     border-radius: 0 !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: none !important;
     overflow: hidden !important;
   }
 
   .hero-bg {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     object-position: center center !important;
   }
 
   .slider-btn {
-    width: 26px !important;
-    height: 38px !important;
-    padding: 0 !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: none !important;
   }
 
-  .slider-btn svg {
-    width: 18px !important;
-    height: 18px !important;
+  .slider-bar-wrapper {
+    margin-top: 10px !important;
+    padding: 4px 0 !important;
   }
 
-  .slider-dots {
-    margin-top: 14px !important;
-    gap: 8px !important;
+  .slider-bar-track {
+    width: 110px !important;
+    height: 3px !important;
   }
 
-  .dot {
-    width: 7px !important;
-    height: 7px !important;
-  }
-
-  .dot.active {
-    width: 7px !important;
-    height: 7px !important;
-  }
-
-  /* 2. CEO 소개 나오기 전 마진 여백 (360~480px 모바일 전용) */
+  /* 2. CEO 소개 나오기 전 첫 화면 높이 채움 (360~480px 모바일 전용) */
   .hero-quote-section {
-    margin-bottom: 80px !important;
+    min-height: calc(100vh - 70px - (100vw * 800 / 1920) - 34px) !important;
+    min-height: calc(100dvh - 70px - (100vw * 800 / 1920) - 34px) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 20px 14px !important;
+  }
+
+  .quote-mark.left-quote {
+    transform: translate(20px, 0px) !important;
+    margin-right: -14px !important;
   }
 
   /* 메뉴 오버레이(메뉴창): 320~480px 모바일 전용 */
@@ -6134,14 +6402,10 @@ section[id],
   }
 
   /* ========================================================
-     [320px ~ 480px 모바일 연혁 스크롤 체류 최적화]
-     1) 체류 중에도 'OUR HISTORY 회사연혁' 타이틀이 상단에 완벽 노출
-     2) 세로로 너무 길었던 연혁 박스 높이를 콤팩트하고 짧게 축소
-     ======================================================== */
-  /* ========================================================
-     [320px ~ 480px 모바일 연혁 스크롤 체류 최적화]
-     1) 건물 사진 배경 & 'OUR HISTORY 회사연혁' 타이틀 스티키 고정
-     2) 세로로 너무 길었던 연혁 박스 높이를 콤팩트하고 짧게 축소 (320px)
+     [320px ~ 480px 모바일 연혁: 인터랙션 제거 및 깔끔한 세로 리스트]
+     1) 상단 'OUR HISTORY 회사연혁' 배너는 고정(Sticky) 없이 자연스럽게 배치
+     2) 복잡한 롤러 인터랙션 섹션은 숨김(display: none)
+     3) 주황색 배지 + 연도 + 가로선 + 불렛 내용의 정적 리스트 노출
      ======================================================== */
   .history-timeline-group {
     width: 100% !important;
@@ -6149,10 +6413,8 @@ section[id],
   }
 
   .history-section {
-    display: block !important;
-    position: sticky !important;
-    top: 56px !important;
-    z-index: 8 !important;
+    position: static !important;
+    top: auto !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -6160,7 +6422,7 @@ section[id],
   }
 
   .history-image-container {
-    height: 95px !important;
+    height: 110px !important;
     overflow: hidden !important;
     position: relative !important;
     width: 100% !important;
@@ -6174,12 +6436,12 @@ section[id],
     object-fit: cover !important;
     object-position: center 25% !important;
     display: block !important;
-    filter: brightness(0.85) !important;
+    filter: brightness(0.82) !important;
   }
 
   .history-overlay-title-group {
     position: absolute !important;
-    top: 52% !important;
+    top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     display: flex !important;
@@ -6211,107 +6473,100 @@ section[id],
     line-height: 1.2 !important;
   }
 
+  /* 스크롤 인터랙션 롤러 섹션 완전 숨김 */
   .timeline-scroll-section {
-    min-height: 200vh !important;
-    position: relative !important;
-    width: 100% !important;
-    background-color: #ffffff !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    display: none !important;
   }
 
-  .timeline-sticky-stage {
-    position: sticky !important;
-    top: 151px !important;
-    height: calc(100vh - 151px) !important;
-    min-height: calc(100vh - 151px) !important;
-    max-height: calc(100vh - 151px) !important;
+  /* 모바일 전용 정적 연혁 리스트 (레퍼런스 이미지 디자인 1:1 반영) */
+  .timeline-mobile-list {
+    display: block !important;
+    width: 100% !important;
+    padding: 24px 20px 44px 20px !important;
+    background-color: #fdfcfb !important;
+    box-sizing: border-box !important;
+  }
+
+  .timeline-mobile-year-group {
+    padding-bottom: 30px !important;
+    margin-bottom: 34px !important;
+    border-bottom: 1.5px solid #ece4dc !important;
+  }
+
+  .timeline-mobile-year-group:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 8px !important;
+  }
+
+  .timeline-mobile-header {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    overflow: hidden !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+    gap: 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1.5px solid #ebdcd0 !important;
+    margin-bottom: 16px !important;
   }
 
-  .timeline-year-panel {
-    width: 38% !important;
-    height: 100% !important;
-    padding: 0 12px 0 8px !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
+  .timeline-mobile-badge {
+    display: none !important;
   }
 
-  .year-slot-current {
-    font-size: 38px !important;
-    font-weight: 900 !important;
-    letter-spacing: -1.5px !important;
-  }
-
-  .timeline-detail-panel {
-    width: 62% !important;
-    height: 100% !important;
-    padding: 0 10px 0 8px !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
-    overflow: visible !important;
-    position: relative !important;
-  }
-
-  .timeline-contents-roller {
-    width: 100% !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-  }
-
-  .timeline-milestone-item {
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    align-items: flex-start !important;
-    text-align: left !important;
-    width: 100% !important;
-  }
-
-  .milestone-text {
-    font-size: 16px !important;
+  .timeline-mobile-year {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+    font-size: 22px !important;
     font-weight: 800 !important;
-    color: #111111 !important;
-    line-height: 1.35 !important;
-    margin-left: 0 !important;
+    color: #1c1c1c !important;
+    margin: 0 !important;
+    padding-left: 8px !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1 !important;
+  }
+
+  .timeline-mobile-items {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .timeline-mobile-items li {
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #2b2b2b !important;
+    line-height: 1.55 !important;
+    position: relative !important;
+    padding-left: 14px !important;
+    word-break: keep-all !important;
     text-align: left !important;
-    word-break: keep-all !important;
-    letter-spacing: -0.4px !important;
   }
 
-  .milestone-sub-text,
-  .milestone-sub {
-    font-size: 11.5px !important;
-    color: #666666 !important;
-    line-height: 1.35 !important;
-    margin-top: 3px !important;
-    word-break: keep-all !important;
+  .timeline-mobile-items li::before {
+    content: "•" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    color: #444444 !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
   }
 
-  .timeline-bg-circles {
-    left: -10px !important;
+  .timeline-mobile-items .sub-text {
+    display: block !important;
+    font-size: 12px !important;
+    color: #777777 !important;
+    margin-top: 2px !important;
   }
 
-  .timeline-bg-circles .circle-1 {
-    width: 150px !important;
-    height: 150px !important;
-  }
-  .timeline-bg-circles .circle-2 {
-    width: 100px !important;
-    height: 100px !important;
-  }
-  .timeline-bg-circles .circle-3 {
-    width: 70px !important;
-    height: 70px !important;
+  /* 플로팅 탑 버튼 모바일 크기 최적화 */
+  .scroll-to-top-btn {
+    right: 18px !important;
+    bottom: 22px !important;
+    width: 44px !important;
+    height: 44px !important;
   }
 }
 
