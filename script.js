@@ -552,6 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // 3. 상태표시줄(프로그레스 바): zoom 1.1 스케일 보정을 적용하여 활성 텍스트의 정확한 중간(중앙 X좌표)에 완벽 일치
+      // 매출 성과를 다 보고 그 아래로 스크롤 시 프로그레스 바가 헤더 우측 끝(100%)까지 자연스럽게 진행
       if (progressBar) {
         if (!activeLinkEl || !activeTarget || !topHeader) {
           progressBar.style.width = "0px";
@@ -567,7 +568,36 @@ document.addEventListener("DOMContentLoaded", () => {
           const zoomFactor = mainWrapper ? (parseFloat(getComputedStyle(mainWrapper).zoom) || 1.1) : 1;
 
           const adjustedWidth = realPixelDist / zoomFactor;
-          progressBar.style.width = Math.max(0, Math.round(adjustedWidth)) + "px";
+
+          // 매출 성과(salesSection) 및 그 아래 영역(엔딩 슬로건, 푸터) 스크롤 감지
+          const salesEl = document.getElementById("salesSection");
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          let progressBelow = 0;
+
+          if (activeTarget === "salesSection" && salesEl) {
+            const salesRect = salesEl.getBoundingClientRect();
+            // salesSection의 하단이 화면 안으로 올라왔을 때(매출 성과를 다 보고 아래로 스크롤 진행 중)
+            if (salesRect.bottom <= window.innerHeight + 10) {
+              const salesEndScrollY = scrollY - (window.innerHeight - salesRect.bottom);
+              const remainingScroll = maxScroll - salesEndScrollY;
+              if (remainingScroll > 20) {
+                progressBelow = Math.min(1, Math.max(0, (scrollY - salesEndScrollY) / remainingScroll));
+              } else {
+                progressBelow = 1;
+              }
+            }
+          }
+
+          // 페이지 맨 끝에 도달했거나 progressBelow가 1에 근접한 경우 100% 끝까지 진행
+          if ((window.innerHeight + scrollY) >= maxScroll - 30 || progressBelow >= 0.98) {
+            progressBar.style.width = "100%";
+          } else if (progressBelow > 0) {
+            const totalHeaderWidth = (topHeader.offsetWidth || headerRect.width) / zoomFactor;
+            const currentWidth = adjustedWidth + (totalHeaderWidth - adjustedWidth) * progressBelow;
+            progressBar.style.width = Math.min(totalHeaderWidth, Math.round(currentWidth)) + "px";
+          } else {
+            progressBar.style.width = Math.max(0, Math.round(adjustedWidth)) + "px";
+          }
         }
       }
     }
@@ -901,6 +931,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let hasAutoTriggered = false;
 
     function updateBrandSectionMotion() {
+      // 모바일 화면(768px 이하)에서는 스크롤 체류 효과 없이 타이틀과 쇼케이스 상시 노출 유지
+      if (window.innerWidth <= 768) {
+        if (brandTitleStage) brandTitleStage.classList.remove("hidden");
+        if (brandShowcaseContainer) brandShowcaseContainer.classList.add("visible");
+        return;
+      }
+
       const rect = brandSection.getBoundingClientRect();
       const sectionHeight = brandSection.offsetHeight;
       const windowHeight = window.innerHeight;
