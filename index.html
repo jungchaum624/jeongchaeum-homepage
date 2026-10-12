@@ -371,13 +371,22 @@
           </div>
         </div>
 
-        <!-- 모바일 전용: 2단계 체류용 유통의 신뢰 영역 (PC 데스크톱에서는 display: none) -->
+        <!-- 모바일 전용: 2단계 체류용 전략 영역 (PC 데스크톱에서는 display: none) -->
         <div class="vision-mobile-strategy-container" id="visionMobileStrategyContainer" aria-hidden="true">
-          <div class="motion-boxes-container step-1">
+          <!-- 네모 모듈 6개 (PC 버전과 동일한 동적 모션) -->
+          <div class="motion-boxes-container step-1" id="visionMobileBoxStage">
             <span class="motion-box b1"></span>
+            <span class="motion-box b2"></span>
+            <span class="motion-box b3"></span>
+            <span class="motion-box b4"></span>
+            <span class="motion-box b5"></span>
+            <span class="motion-box b6"></span>
           </div>
-          <div class="strategy-text-stage">
-            <div class="strategy-item active">
+
+          <!-- 전략 텍스트 스테이지 (유통의 신뢰 -> 스마트 기술 -> 상생 유통 순차 전환) -->
+          <div class="strategy-text-stage" id="visionMobileTextStage">
+            <!-- Item 1: Trust in Distribution -->
+            <div class="strategy-item active" data-step="1">
               <div class="strategy-left">
                 <h3 class="strategy-en-title">Trust in Distribution</h3>
                 <p class="strategy-kr-subtitle">유통의 신뢰</p>
@@ -385,6 +394,30 @@
               <div class="strategy-right">
                 <p class="strategy-desc">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해</p>
                 <p class="strategy-desc">신선함을 제공합니다.</p>
+              </div>
+            </div>
+
+            <!-- Item 2: Smart Technology -->
+            <div class="strategy-item" data-step="2">
+              <div class="strategy-left">
+                <h3 class="strategy-en-title">Smart-Technology</h3>
+                <p class="strategy-kr-subtitle">스마트 기술</p>
+              </div>
+              <div class="strategy-right">
+                <p class="strategy-desc">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로</p>
+                <p class="strategy-desc">위생과 효율을 극대화하며, 더 안전하고 스마트한 식품 유통을 실현합니다.</p>
+              </div>
+            </div>
+
+            <!-- Item 3: Shared-Growth Distribution -->
+            <div class="strategy-item" data-step="3">
+              <div class="strategy-left">
+                <h3 class="strategy-en-title">Shared-Growth Distribution</h3>
+                <p class="strategy-kr-subtitle">상생 유통</p>
+              </div>
+              <div class="strategy-right">
+                <p class="strategy-desc">협력사와 동반 성장을 위해 숙련 기술을 전수하고</p>
+                <p class="strategy-desc">사회적 책임을 다하는 경영을 실천합니다.</p>
               </div>
             </div>
           </div>

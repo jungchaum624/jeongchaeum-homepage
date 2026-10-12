@@ -558,14 +558,14 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           const headerRect = topHeader.getBoundingClientRect();
           const linkRect = activeLinkEl.getBoundingClientRect();
-          
+
           // 뷰포트 상에서 헤더 좌측 끝부터 텍스트 가로 정중앙까지의 실제 픽셀 거리
           const realPixelDist = (linkRect.left + linkRect.width / 2) - headerRect.left;
-          
+
           // .main-wrapper의 zoom: 1.1 스케일 왜곡 역보정
           const mainWrapper = document.querySelector(".main-wrapper");
           const zoomFactor = mainWrapper ? (parseFloat(getComputedStyle(mainWrapper).zoom) || 1.1) : 1;
-          
+
           const adjustedWidth = realPixelDist / zoomFactor;
           progressBar.style.width = Math.max(0, Math.round(adjustedWidth)) + "px";
         }
@@ -672,17 +672,48 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================================
-  // 모바일 전용: 비전 섹션 2단계 스크롤 체류 인터랙션
-  // 1단계(0~30%): "정채움 비전" 단독 화면 중앙 체류
-  // 전환(30~55%): "유통의 신뢰" 자연스러운 상승 전환
-  // 2단계(55~100%): "정채움 비전" + "유통의 신뢰" 첫 번째 사진 상태로 동시 체류
-  // 100% 이후: 다음 섹션(R&D)으로 통과 (R&D는 체류 없음)
+  // 모바일 전용: 비전 섹션 스크롤 체류 및 기업 전략 3개 순차 체류 + 네모 모듈 동적 모션
+  // 1단계(0~16%): "정채움 비전" 단독 화면 중앙 체류
+  // 전환(16~28%): "정채움 비전" 상단 이동 & 하단 전략 영역(선 + 네모 + 텍스트) 상승
+  // 2단계(28~50%): [전략 1] 유통의 신뢰 (Trust in Distribution) + 네모 1개(step-1)
+  // 3단계(50~74%): [전략 2] 스마트 기술 (Smart-Technology) + 네모 4개 전개(step-2)
+  // 4단계(74~88%): [전략 3] 상생 유통 (Shared-Growth Distribution) + 6개 네모 리듬 배치(step-3)
+  // 5단계(88~100%): [전략 3] 상생 유통 지속 + 6개 네모 파동 모션(step-4)
+  // 100% 이후: 다음 섹션(R&D)으로 자연스럽게 스크롤 통과 (R&D 체류 없음)
   // =========================================
   const mobileVisionSection = document.getElementById("visionSection");
   const mobileVisionContentWrapper = mobileVisionSection
     ? mobileVisionSection.querySelector(".vision-content-wrapper")
     : null;
   const mobileStrategyContainer = document.getElementById("visionMobileStrategyContainer");
+  const mobileBoxStage = document.getElementById("visionMobileBoxStage");
+  let currentMobileStrategyIdx = -1;
+  let currentMobileBoxStep = "step-1";
+
+  function setMobileBoxStep(nextStep) {
+    if (!mobileBoxStage || currentMobileBoxStep === nextStep) return;
+    mobileBoxStage.classList.remove("step-1", "step-2", "step-3", "step-4", "step-5");
+    mobileBoxStage.classList.add(nextStep);
+    currentMobileBoxStep = nextStep;
+  }
+
+  function setMobileStrategyItem(activeIdx) {
+    if (currentMobileStrategyIdx === activeIdx) return;
+    currentMobileStrategyIdx = activeIdx;
+    if (!mobileStrategyContainer) return;
+    const items = mobileStrategyContainer.querySelectorAll(".strategy-item");
+    items.forEach((item, idx) => {
+      if (idx === activeIdx) {
+        item.classList.remove("prev");
+        item.classList.add("active");
+      } else if (idx < activeIdx) {
+        item.classList.remove("active");
+        item.classList.add("prev");
+      } else {
+        item.classList.remove("active", "prev");
+      }
+    });
+  }
 
   function updateMobileVisionInteraction() {
     if (!mobileVisionSection || !mobileVisionContentWrapper || !mobileStrategyContainer) return;
@@ -692,6 +723,11 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileStrategyContainer.style.transform = "";
       mobileStrategyContainer.style.opacity = "";
       mobileStrategyContainer.style.pointerEvents = "";
+      const visionSticky = mobileVisionSection.querySelector(".vision-sticky-wrapper");
+      if (visionSticky) visionSticky.style.backgroundColor = "";
+      mobileVisionSection.style.backgroundColor = "";
+      currentMobileStrategyIdx = -1;
+      setMobileBoxStep("step-1");
       return;
     }
 
@@ -705,28 +741,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const progress = Math.max(0, Math.min(1, scrollDistance / totalScrollable));
 
-    if (progress < 0.30) {
-      // 1단계: 정채움 비전 단독 체류 (화면 중앙 정렬)
-      mobileVisionContentWrapper.style.transform = "translateY(55px)";
-      mobileStrategyContainer.style.transform = "translateY(80px)";
+    // 비전 섹션 끝자락(0.80 ~ 1.00)에서 R&D로 넘어갈 때 배경색을 베이지(#ece4de)에서 순백색(#ffffff)으로 부드럽고 자연스럽게 전환
+    const visionSticky = mobileVisionSection.querySelector(".vision-sticky-wrapper");
+    if (visionSticky) {
+      if (progress > 0.80) {
+        const ratio = (progress - 0.80) / (1 - 0.80);
+        const r = Math.round(236 + (255 - 236) * ratio);
+        const g = Math.round(228 + (255 - 228) * ratio);
+        const b = Math.round(222 + (255 - 222) * ratio);
+        visionSticky.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        mobileVisionSection.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+      } else {
+        visionSticky.style.backgroundColor = "";
+        mobileVisionSection.style.backgroundColor = "";
+      }
+    }
+
+    if (progress < 0.16) {
+      // 1단계: 정채움 비전 타이틀은 상단 고정, 카드와 전략만 아래로 배치된 상태 유지
+      mobileVisionContentWrapper.style.transform = "translateY(0px)";
+      mobileStrategyContainer.style.transform = "translateY(125px)";
       mobileStrategyContainer.style.opacity = "0";
       mobileStrategyContainer.style.pointerEvents = "none";
-    } else if (progress < 0.55) {
-      // 전환: 0.30 ~ 0.55 구간 부드러운 이징 이동
-      const t = (progress - 0.30) / (0.55 - 0.30);
+      setMobileStrategyItem(0);
+      setMobileBoxStep("step-1");
+    } else if (progress < 0.28) {
+      // 전환: 상단 타이틀은 고정된 채, 하단 전략 영역만 부드럽게 55px 위치로 상승 & 페이드인
+      const t = (progress - 0.16) / (0.28 - 0.16);
       const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      const vY = 55 * (1 - ease);
-      const sY = 80 * (1 - ease);
-      mobileVisionContentWrapper.style.transform = `translateY(${vY}px)`;
+      const sY = 55 + (1 - ease) * 70;
+      mobileVisionContentWrapper.style.transform = "translateY(0px)";
       mobileStrategyContainer.style.transform = `translateY(${sY}px)`;
       mobileStrategyContainer.style.opacity = ease.toFixed(3);
       mobileStrategyContainer.style.pointerEvents = ease > 0.5 ? "auto" : "none";
+      setMobileStrategyItem(0);
+      setMobileBoxStep("step-1");
     } else {
-      // 2단계: 첫 번째 사진 레이아웃으로 동시 체류 (0.55 ~ 1.00 완벽 고정)
+      // 2~5단계: 상단 타이틀 고정 + 핑크색 영역(카드 & 전략) 55px 하단 위치에서 체류 모션 수행
       mobileVisionContentWrapper.style.transform = "translateY(0px)";
-      mobileStrategyContainer.style.transform = "translateY(0px)";
+      mobileStrategyContainer.style.transform = "translateY(55px)";
       mobileStrategyContainer.style.opacity = "1";
       mobileStrategyContainer.style.pointerEvents = "auto";
+
+      // 0.28 ~ 0.50: 전략 1 (유통의 신뢰) + 1개 다이아몬드 (step-1)
+      // 0.50 ~ 0.74: 전략 2 (스마트 기술) + 4개 펼쳐짐 (step-2)
+      // 0.74 ~ 0.88: 전략 3 (상생 유통) + 6개 리듬 배치 (step-3)
+      // 0.88 ~ 1.00: 전략 3 (상생 유통 유지) + 6개 파동 웨이브 (step-4)
+      if (progress < 0.50) {
+        setMobileStrategyItem(0);
+        setMobileBoxStep("step-1");
+      } else if (progress < 0.74) {
+        setMobileStrategyItem(1);
+        setMobileBoxStep("step-2");
+      } else if (progress < 0.88) {
+        setMobileStrategyItem(2);
+        setMobileBoxStep("step-3");
+      } else {
+        setMobileStrategyItem(2);
+        setMobileBoxStep("step-4");
+      }
     }
   }
 
