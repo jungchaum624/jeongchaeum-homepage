@@ -337,6 +337,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     function updateNavAndProgress() {
+      // 모바일에서는 상단 네비게이션 및 프로그레스 바가 숨겨져 있으므로 불필요한 DOM 연산 방지
+      if (window.innerWidth <= 768) return;
+
       const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
       const topHeader = document.querySelector(".top-header");
       const headerHeight = topHeader ? topHeader.offsetHeight : 70;
@@ -472,6 +475,8 @@ document.addEventListener("DOMContentLoaded", () => {
     boxStage.classList.add("step-1");
 
     function updateBoxMotion() {
+      if (window.innerWidth <= 768) return;
+
       const rect = boxMotionSection.getBoundingClientRect();
       const sectionHeight = boxMotionSection.offsetHeight;
       const windowHeight = window.innerHeight;
@@ -670,8 +675,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  window.addEventListener("scroll", updateMobileVisionInteraction, { passive: true });
-  window.addEventListener("resize", updateMobileVisionInteraction);
+  let isTickingVision = false;
+  function handleMobileVisionScroll() {
+    if (!isTickingVision) {
+      window.requestAnimationFrame(() => {
+        updateMobileVisionInteraction();
+        isTickingVision = false;
+      });
+      isTickingVision = true;
+    }
+  }
+
+  window.addEventListener("scroll", handleMobileVisionScroll, { passive: true });
+  window.addEventListener("resize", handleMobileVisionScroll);
   updateMobileVisionInteraction();
 
   // 한우고집쟁이 기하학적 세모 모듈 및 핵심역량 텍스트 스크롤 인터랙션 제어
@@ -687,6 +703,8 @@ document.addEventListener("DOMContentLoaded", () => {
     triangleStage.classList.add("step-1");
 
     function updateTriangleMotion() {
+      if (window.innerWidth <= 768) return;
+
       const rect = hanwooMotionSection.getBoundingClientRect();
       const sectionHeight = hanwooMotionSection.offsetHeight;
       const windowHeight = window.innerHeight;

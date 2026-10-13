@@ -4769,7 +4769,8 @@ section[id],
   body {
     width: 100% !important;
     max-width: 100vw !important;
-    overflow-x: clip !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
     position: relative !important;
   }
 
@@ -4778,7 +4779,7 @@ section[id],
     zoom: 1 !important;
     width: 100% !important;
     max-width: 100vw !important;
-    overflow-x: clip !important;
+    overflow-x: hidden !important;
     margin: 0 auto !important;
   }
 
@@ -5195,30 +5196,30 @@ section[id],
     word-break: keep-all !important;
   }
 
-  /* 4. 운영 브랜드 섹션: PC 레이아웃(상단 대표소개 + 하단 3개 제품 가로 1열) 및 스크롤 체류(Sticky) 적용 */
+  /* 4. 운영 브랜드 섹션: 모바일 스크롤 체류(Sticky) 완전 해제 및 자연스러운 정적 스크롤 적용 */
   .brand-section {
-    min-height: 260vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 44px 0 48px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background: #ffffff !important;
   }
 
   .brand-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .brand-title-stage {
@@ -5355,11 +5356,10 @@ section[id],
     margin-top: auto !important;
   }
 
-  /* 5. 비전 섹션: 컴퓨터 비율 그대로 중앙에 한눈에 나오도록 축소 정렬 + 스크롤 체류(Sticky) 적용 */
-  /* 5. 비전 섹션: 2단계 스크롤 체류(Sticky) 적용 (정채움 비전 체류 -> 유통의 신뢰 상승 후 동시 체류) */
+  /* 5. 비전 섹션: 컴퓨터 비율 그대로 중앙에 한눈에 나오도록 축소 정렬 + 적정 스크롤 체류(Sticky) 적용 */
   .vision-section,
   .vision-section.hanwoo-vision-section {
-    min-height: 480vh !important;
+    min-height: 250vh !important;
     height: auto !important;
     position: relative !important;
     padding: 0 !important;
