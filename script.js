@@ -588,20 +588,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateMobileVisionInteraction() {
-    if (!mobileVisionSection || !mobileVisionContentWrapper || !mobileStrategyContainer) return;
-
-    if (window.innerWidth > 768) {
-      mobileVisionContentWrapper.style.transform = "";
-      mobileStrategyContainer.style.transform = "";
-      mobileStrategyContainer.style.opacity = "";
-      mobileStrategyContainer.style.pointerEvents = "";
-      const visionSticky = mobileVisionSection.querySelector(".vision-sticky-wrapper");
-      if (visionSticky) visionSticky.style.backgroundColor = "";
-      mobileVisionSection.style.backgroundColor = "";
-      currentMobileStrategyIdx = -1;
-      setMobileBoxStep("step-1");
-      return;
-    }
+    // 모바일 비전 섹션: 스크롤 체류 및 어트랙션 완전 해제 -> 상시 정적 카드 스택으로 표시
+    return;
 
     const rect = mobileVisionSection.getBoundingClientRect();
     const sectionHeight = mobileVisionSection.offsetHeight;

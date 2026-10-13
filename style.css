@@ -5356,32 +5356,32 @@ section[id],
     margin-top: auto !important;
   }
 
-  /* 5. 비전 섹션: 컴퓨터 비율 그대로 중앙에 한눈에 나오도록 축소 정렬 + 적정 스크롤 체류(Sticky) 적용 */
+  /* 5. 비전 섹션: 모바일 스크롤 체류(Sticky) 및 어트랙션 완전 해제 -> 상시 정적 스크롤 적용 */
   .vision-section,
   .vision-section.hanwoo-vision-section {
-    min-height: 250vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 48px 18px 56px 18px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ece4de !important;
   }
 
   .vision-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 14px 20px 14px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
-    background-color: #ece4de !important;
+    overflow: visible !important;
+    background-color: transparent !important;
   }
 
   .vision-content-wrapper {
@@ -5391,12 +5391,13 @@ section[id],
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    will-change: transform !important;
+    transform: none !important;
+    will-change: auto !important;
   }
 
   .vision-content-wrapper .section-title-group {
-    margin-top: -46px !important;
-    margin-bottom: 36px !important;
+    margin-top: 0 !important;
+    margin-bottom: 24px !important;
     text-align: center !important;
     display: flex !important;
     flex-direction: column !important;
@@ -5410,27 +5411,28 @@ section[id],
     letter-spacing: 2px !important;
     color: #888888 !important;
     display: block !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 4px !important;
     text-align: center !important;
     align-self: center !important;
   }
 
   .vision-section-title {
-    font-size: 28px !important;
+    font-size: 26px !important;
     font-weight: 800 !important;
     color: #111111 !important;
     letter-spacing: -0.5px !important;
     text-align: center !important;
-    line-height: 1.2 !important;
+    line-height: 1.25 !important;
     margin: 0 auto !important;
     align-self: center !important;
     width: 100% !important;
   }
 
-  /* 핑크색 영역 아래로 이동: 상단 정채움 비전 타이틀은 고정 유지하고 카드 컨테이너만 아래로 이동 */
+  /* 정채움 비전 상단 카드: 어트랙션 없이 제자리 정적 노출 */
   .vision-card-container {
-    transform: translateY(55px) !important;
+    transform: none !important;
     width: 100% !important;
+    margin-bottom: 0 !important;
   }
 
   .vision-card {
@@ -5497,209 +5499,82 @@ section[id],
     margin: 0 auto !important;
   }
 
-  /* 6. 모바일 전용 기업 전략 영역 (비전 스티키 내 통합 & 3개 전략 순차 체류 전환) */
+  /* 6. 모바일 전용 3대 기업 전략: 어트랙션 없이 위에서 아래로 순서대로 차례차례 정적 나열 */
   .vision-mobile-strategy-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin-top: 32px !important;
-    /* 정채움 비전 아래 요소들과 넉넉한 간격 */
+    margin-top: 70px !important;
     box-sizing: border-box !important;
     background: transparent !important;
-    will-change: transform, opacity !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    will-change: auto !important;
   }
 
-  /* 상단 구분선 제거 */
-  .vision-mobile-top-line {
+  /* 모바일에서는 어트랙션용 네모 모듈 박스 숨김 */
+  .vision-mobile-strategy-container .motion-boxes-container {
     display: none !important;
   }
 
-  /* 네모 모듈 크기 및 간격 대폭 축소 스테이지 */
-  .vision-mobile-strategy-container .motion-boxes-container {
-    width: 130px !important;
-    height: 38px !important;
-    margin: 0 auto 10px auto !important;
-    position: relative !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex-shrink: 0 !important;
-    transform: none !important;
-  }
 
-  .vision-mobile-strategy-container .motion-box {
-    position: absolute !important;
-    width: 12px !important;
-    height: 12px !important;
-    background-color: #111111 !important;
-    border-radius: 0 !important;
-    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
-      opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
-  }
 
-  /* Step 1: 중앙 1개 미니 다이아몬드 */
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b1 {
-    transform: translate(0, 0) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b2,
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b3,
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b4,
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b5,
-  .vision-mobile-strategy-container .motion-boxes-container.step-1 .b6 {
-    transform: translate(0, 0) rotate(45deg) !important;
-    opacity: 0 !important;
-  }
-
-  /* Step 2: 네모 간격/마진을 대폭 줄인 4개 가로 전개 (중심 간격 18px, 여백 약 6px) */
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b1 {
-    transform: translate(-27px, 0) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b2 {
-    transform: translate(-9px, 0) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b3 {
-    transform: translate(9px, 0) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b4 {
-    transform: translate(27px, 0) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b5,
-  .vision-mobile-strategy-container .motion-boxes-container.step-2 .b6 {
-    transform: translate(0, 0) rotate(45deg) !important;
-    opacity: 0 !important;
-  }
-
-  /* Step 3: 네모 간격/마진을 대폭 줄인 6개 컴팩트 리듬 배치 */
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b1 {
-    transform: translate(-40px, 0px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b2 {
-    transform: translate(-24px, -12px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b3 {
-    transform: translate(-8px, -4px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b4 {
-    transform: translate(8px, 10px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b5 {
-    transform: translate(24px, -10px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-3 .b6 {
-    transform: translate(40px, 6px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  /* Step 4: 네모 간격/마진을 대폭 줄인 6개 컴팩트 파동 웨이브 */
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b1 {
-    transform: translate(-40px, -10px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b2 {
-    transform: translate(-24px, 4px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b3 {
-    transform: translate(-8px, -12px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b4 {
-    transform: translate(8px, -4px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b5 {
-    transform: translate(24px, 8px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  .vision-mobile-strategy-container .motion-boxes-container.step-4 .b6 {
-    transform: translate(40px, -6px) rotate(45deg) !important;
-    opacity: 1 !important;
-  }
-
-  /* 전략 텍스트 스테이지 (3개 항목 제자리 부드러운 전환) */
+  /* 3개 전략 리스트 세로 적층 컨테이너 */
   .vision-mobile-strategy-container .strategy-text-stage {
-    position: relative !important;
+    position: static !important;
     width: 100% !important;
-    min-height: 125px !important;
-    height: 125px !important;
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 36px !important;
   }
 
+  /* 3개 전략 개별 아이템: 하얀 박스 없이 순수 텍스트만 표시 (상시 100% 노출) */
   .vision-mobile-strategy-container .strategy-item {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: static !important;
     width: 100% !important;
+    box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
     text-align: center !important;
-    gap: 5px !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transform: translateY(18px) !important;
-    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s ease !important;
-    pointer-events: none !important;
-    margin: 0 auto !important;
-  }
-
-  .vision-mobile-strategy-container .strategy-item.active {
+    gap: 8px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateY(0px) !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    transition: none !important;
+    margin: 0 !important;
+  }
+
+  .vision-mobile-strategy-container .strategy-item.active,
+  .vision-mobile-strategy-container .strategy-item.prev {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
     pointer-events: auto !important;
   }
 
-  .vision-mobile-strategy-container .strategy-item.prev {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transform: translateY(-18px) !important;
-    pointer-events: none !important;
-  }
-
   .vision-mobile-strategy-container .strategy-left {
-    flex: none !important;
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    gap: 3px !important;
-    margin: 0 auto !important;
+    gap: 2px !important;
   }
 
   .vision-mobile-strategy-container .strategy-en-title {
-    font-size: 19px !important;
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: #111111 !important;
     letter-spacing: -0.4px !important;
@@ -5711,9 +5586,9 @@ section[id],
   }
 
   .vision-mobile-strategy-container .strategy-kr-subtitle {
-    font-size: 15px !important;
+    font-size: 13.5px !important;
     font-weight: 700 !important;
-    color: #555555 !important;
+    color: #76614f !important;
     letter-spacing: -0.3px !important;
     text-align: center !important;
     margin: 0 auto !important;
@@ -5735,9 +5610,9 @@ section[id],
   }
 
   .vision-mobile-strategy-container .strategy-desc {
-    font-size: 12.5px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
-    color: #444444 !important;
+    color: #555555 !important;
     line-height: 1.55 !important;
     text-align: center !important;
     word-break: keep-all !important;
