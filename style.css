@@ -706,6 +706,12 @@ section[id],
   pointer-events: auto;
 }
 
+.slide picture {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .hero-bg {
   width: 100%;
   height: 100%;
@@ -744,6 +750,11 @@ section[id],
 }
 
 @media (max-width: 768px) {
+  .slider-container {
+    aspect-ratio: 1 / 0.88 !important;
+    min-height: 330px !important;
+  }
+
   .slider-btn {
     width: 36px;
     height: 36px;
@@ -3295,26 +3306,19 @@ section[id],
   word-break: keep-all;
 }
 
-/* 밑줄/하이라이트가 스르륵 칠해지는 애니메이션 & 흰색 글씨 */
+/* 밑줄/하이라이트 애니메이션 제거: 중요한 부분 강조되도록 정적 밑줄 유지 */
 .black-highlight {
   display: inline;
-  color: #ffffff;
-  padding: 2px 6px;
-  border-radius: 0;
-  background-image: linear-gradient(to right, #454545, #454545);
-  background-repeat: no-repeat;
-  background-size: 0% 100%;
-  /* 초기 상태: 칠해지지 않음 */
-  background-position: 0 0;
-  transition: background-size 0.9s cubic-bezier(0.25, 1, 0.5, 1);
-  font-weight: 600;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  color: #1a1a1a;
+  font-weight: 700;
+  border-bottom: 1.5px solid #2b2520;
+  padding-bottom: 1px;
+  background: none !important;
+  transition: none !important;
 }
 
-/* 스크롤 시 섹션이 보이면 밑줄이 샥 칠해지는 인터랙션 */
 .safety-bottom-cards.visible .black-highlight {
-  background-size: 100% 100%;
+  background: none !important;
 }
 
 @media (max-width: 900px) {
@@ -4869,7 +4873,8 @@ section[id],
 
   .slider-container {
     width: 100% !important;
-    aspect-ratio: 1920 / 800 !important;
+    aspect-ratio: 1 / 0.88 !important;
+    min-height: 330px !important;
     box-shadow: none !important;
   }
 
@@ -4885,8 +4890,8 @@ section[id],
   }
 
   .slider-bar-wrapper {
-    margin-top: 10px !important;
-    padding: 4px 0 !important;
+    margin-top: 8px !important;
+    padding: 2px 0 !important;
   }
 
   .slider-bar-track {
@@ -4894,11 +4899,10 @@ section[id],
     height: 3px !important;
   }
 
-  /* 2. 슬로건 인용구 섹션: 첫 화면에서 CEO 섹션 가림 및 여백 최적화 */
+  /* 2. 슬로건 인용구 섹션: 여백 대폭 축소 */
   .hero-quote-section {
-    min-height: calc(100vh - 70px - (100vw * 800 / 1920) - 34px) !important;
-    min-height: calc(100dvh - 70px - (100vw * 800 / 1920) - 34px) !important;
-    padding: 24px 14px !important;
+    min-height: auto !important;
+    padding: 28px 14px 30px !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     width: 100% !important;
@@ -4992,7 +4996,7 @@ section[id],
     margin: 0 auto !important;
   }
 
-  /* CEO 소개 섹션 타이틀: 위쪽으로 대폭 이동 및 아래 요소와 넉넉한 간격(60px) 확보 (모바일 전용) */
+  /* CEO 소개 섹션 타이틀: 위아래 불필요한 마진 제거 */
   .ceo-header-title-group {
     display: flex !important;
     flex-direction: column !important;
@@ -5000,12 +5004,12 @@ section[id],
     text-align: center !important;
     justify-content: center !important;
     width: 100% !important;
-    margin-top: -25px !important;
-    margin-bottom: 38px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
   }
 
   .ceo-main-title {
-    font-size: 28px !important;
+    font-size: 26px !important;
     font-weight: 800 !important;
     letter-spacing: -0.5px !important;
     color: #111111 !important;
@@ -5013,31 +5017,31 @@ section[id],
     margin: 0 auto !important;
   }
 
-  /* 3. 회사소개(CEO) 섹션: 모던 카드 스타일 디자인 및 모바일 스크롤 체류(Sticky) 적용 */
+  /* 3. 회사소개(CEO) 섹션: 적당히 숨 쉴 여유를 둔 상하 여백 */
   .ceo-section {
-    min-height: 240vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
+    position: static !important;
     margin-top: 0 !important;
-    padding: 0 !important;
+    padding: 44px 0 48px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #f7f3ee !important;
   }
 
   .ceo-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 8px 14px 20px 14px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 16px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   /* CEO 소개 레이아웃: 상단 가운데 슬로건 + 중단 좌우 2열(좌: 사장님 사진 / 우: 설명문) + 하단 가로 3개 지표 박스 */
@@ -5863,30 +5867,30 @@ section[id],
     margin-top: 2px !important;
   }
 
-  /* 8. 안전경영 섹션: PC 레이아웃(상단 3개 + 하단 2개 가로 1열) + 스크롤 체류(Sticky) 적용 */
+  /* 8. 안전경영 섹션: 모바일 스크롤 체류 완전 해제 */
   .safety-section {
-    min-height: 240vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 44px 0 48px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ffffff !important;
   }
 
   .safety-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .safety-title-group {
@@ -6009,12 +6013,24 @@ section[id],
     width: 100% !important;
   }
 
-  /* 9. R&D 섹션: 모바일 스크롤 체류(Sticky) 및 완전한 순백색(#ffffff) 배경 적용 */
+  /* 모바일: 신뢰 가치 중요 부분 정적 밑줄 강조 (어트랙션 없음) */
+  .trust-value-card .black-highlight {
+    display: inline !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    border-bottom: 1.5px solid #2b2520 !important;
+    padding-bottom: 1px !important;
+    background: none !important;
+    transition: none !important;
+  }
+
+  /* 9. R&D 섹션: 모바일 상하 거대한 빈 마진/여백 완전 제거 및 기술성과 사이 적정 마진 추가 */
   .rd-section {
-    min-height: 220vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 44px 0 48px 0 !important;
+    margin-bottom: 24px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background: #ffffff !important;
@@ -6023,18 +6039,18 @@ section[id],
   }
 
   .rd-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 12px 20px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     background: #ffffff !important;
     background-color: #ffffff !important;
     z-index: 10 !important;
@@ -6052,11 +6068,10 @@ section[id],
     box-sizing: border-box !important;
   }
 
-  /* 2. R&D 텍스트와 설명글 더 위로 이동 */
+  /* R&D 텍스트 타이틀 여백 정돈 */
   .rd-title-group {
-    margin-top: -48px !important;
-    /* 타이틀 텍스트를 위로 조금 더 올림 */
-    margin-bottom: 18px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
     text-align: center !important;
     width: 100% !important;
     display: flex !important;
@@ -6269,19 +6284,19 @@ section[id],
   }
 
   .awards-header-area {
-    padding: 0 14px 135px 14px !important;
+    padding: 0 14px 20px 14px !important;
     width: 100% !important;
   }
 
   .haccp-tech-section-title {
-    font-size: 26px !important;
+    font-size: 24px !important;
     white-space: nowrap !important;
     line-height: 1.25 !important;
     letter-spacing: -0.6px !important;
   }
 
   .awards-headline-group {
-    margin-top: 60px !important;
+    margin-top: 20px !important;
   }
 
   .awards-main-title {
@@ -6299,7 +6314,7 @@ section[id],
   }
 
   .awards-dark-section {
-    padding: 0 12px 40px 12px !important;
+    padding: 0 12px 30px 12px !important;
     width: 100% !important;
   }
 
@@ -6310,7 +6325,7 @@ section[id],
     justify-content: center !important;
     align-items: flex-end !important;
     gap: 6px !important;
-    margin-top: -80px !important;
+    margin-top: 10px !important;
     width: 100% !important;
   }
 
@@ -6362,12 +6377,12 @@ section[id],
     width: 100% !important;
   }
 
-  /* 10-2. 운영 브랜드(정채움) 섹션: 모바일 스크롤 체류 효과 제거 및 상하 잘림 방지 (자연스러운 스크롤) */
+  /* 10-2. 운영 브랜드(정채움) 섹션: 패딩 및 상하 마진 축소 */
   .brand-section {
     min-height: auto !important;
     height: auto !important;
     position: static !important;
-    padding: 60px 0 70px 0 !important;
+    padding: 24px 0 28px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ffffff !important;
@@ -6378,8 +6393,7 @@ section[id],
     top: auto !important;
     height: auto !important;
     min-height: auto !important;
-    padding: 0 28px !important;
-    /* 좌우 벽에서 28px 떨어뜨려 여유로운 여백 확보 */
+    padding: 0 20px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -6389,7 +6403,7 @@ section[id],
     overflow: visible !important;
   }
 
-  /* 운영 브랜드 타이틀 스테이지: 상단에 단정하게 상시 노출 */
+  /* 운영 브랜드 타이틀 스테이지: 여백 축소 */
   .brand-title-stage {
     position: static !important;
     transform: none !important;
@@ -6400,7 +6414,7 @@ section[id],
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    margin-bottom: 56px !important;
+    margin-bottom: 24px !important;
     padding: 0 !important;
     width: 100% !important;
   }
@@ -6574,12 +6588,12 @@ section[id],
     font-weight: 700 !important;
   }
 
-  /* 10-3. 운영 브랜드(한우고집쟁이) 섹션: 모바일 스크롤 체류 효과 제거 및 상하 잘림 방지 (자연스러운 스크롤) */
+  /* 10-3. 운영 브랜드(한우고집쟁이) 섹션: 패딩 축소 */
   #hanwooSection {
     min-height: auto !important;
     height: auto !important;
     position: static !important;
-    padding: 60px 0 70px 0 !important;
+    padding: 24px 0 28px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #141414 !important;
@@ -6590,8 +6604,7 @@ section[id],
     top: auto !important;
     height: auto !important;
     min-height: auto !important;
-    padding: 0 28px !important;
-    /* 좌우 벽에서 28px 떨어뜨려 여유로운 여백 확보 */
+    padding: 0 20px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -6760,30 +6773,30 @@ section[id],
     font-weight: 700 !important;
   }
 
-  /* 11. 협력업체 섹션: PC 레이아웃(4열 그리드) + 스크롤 체류(Sticky) 적용 */
+  /* 11. 협력업체 섹션: 모바일 스크롤 체류 완전 해제 */
   .partners-section {
-    min-height: 230vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 44px 0 48px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ffffff !important;
   }
 
   .partners-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .partners-grid {
@@ -6827,30 +6840,30 @@ section[id],
     transform: scale(1.12) !important;
   }
 
-  /* 12. 매출 성과 섹션: PC 레이아웃(상단 차트 + 하단 3개 지표 가로 1열) + 스크롤 체류(Sticky) 적용 */
+  /* 12. 매출 성과 섹션: 모바일 스크롤 체류 완전 해제 */
   .sales-section {
-    min-height: 230vh !important;
+    min-height: auto !important;
     height: auto !important;
-    position: relative !important;
-    padding: 0 !important;
+    position: static !important;
+    padding: 44px 0 48px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     background-color: #ffffff !important;
   }
 
   .sales-sticky-wrapper {
-    position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    padding: 10px 12px !important;
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .sales-container {
@@ -6870,6 +6883,11 @@ section[id],
   .sales-chart-card {
     padding: 6px !important;
     width: 100% !important;
+  }
+
+  /* 모바일 매출 성과: 어트랙션(물결 애니메이션 등) 완전 제거 */
+  .chart-ripple-container {
+    display: none !important;
   }
 
   /* 컴퓨터처럼 3개 지표 카드 가로 1줄 나란히 배치 유지 */
@@ -6903,9 +6921,9 @@ section[id],
   /* 13. 엔딩 슬로건 & 사이트 푸터: 컴퓨터 디자인 그대로 정돈 */
   .trust-slogan-section {
     min-height: auto !important;
-    padding: 45px 14px 60px 14px !important;
-    margin-top: 10px !important;
-    margin-bottom: 24px !important;
+    padding: 24px 14px 28px 14px !important;
+    margin-top: 6px !important;
+    margin-bottom: 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -7120,7 +7138,8 @@ section[id],
 
   .slider-container {
     width: 100% !important;
-    aspect-ratio: 1920 / 800 !important;
+    aspect-ratio: 1 / 0.88 !important;
+    min-height: 330px !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     overflow: hidden !important;
@@ -7147,13 +7166,12 @@ section[id],
     height: 3px !important;
   }
 
-  /* 2. CEO 소개 나오기 전 첫 화면 높이 채움 (360~480px 모바일 전용) */
+  /* 2. CEO 소개 나오기 전 슬로건 인용구 섹션 여백 정리 */
   .hero-quote-section {
-    min-height: calc(100vh - 70px - (100vw * 800 / 1920) - 34px) !important;
-    min-height: calc(100dvh - 70px - (100vw * 800 / 1920) - 34px) !important;
+    min-height: auto !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    padding: 20px 14px !important;
+    padding: 44px 16px 48px !important;
   }
 
   .quote-mark.left-quote {
@@ -7483,4 +7501,19 @@ section[id],
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ========================================================
+   [Lazy Loading 제거: 스크롤 시 요소 즉시 100% 노출]
+   ======================================================== */
+.scroll-fade,
+.scroll-slide-left,
+.scroll-slide-right,
+.hero-quote-container,
+.hero-quote-text,
+.quote-mark {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  visibility: visible !important;
 }

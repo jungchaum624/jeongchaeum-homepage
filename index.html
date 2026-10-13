@@ -4,14 +4,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정채움 | 식품 제조·가공 전문기업</title>
+  <meta name="description" content="건강한 식문화를 위해 정직하게 만드는 식품 제조·가공 전문기업 정채움입니다." />
+  <meta property="og:title" content="정채움 | 식품 제조·가공 전문기업" />
+  <meta property="og:description" content="건강한 식문화를 위해 정직하게 만드는 식품 제조·가공 전문기업 정채움입니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jungchaeum.com/" />
+  <meta property="og:site_name" content="정채움" />
   <meta name="naver-site-verification" content="33132f90a4ba97c12a2b581e06d44a6ff8e9a9f8" />
-  <!-- 파비콘 (브라우저 탭 육각형 아이콘) -->
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="shortcut icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
+
+  <!-- WebSite 구조화 데이터 (Google 사이트 이름 및 URL 지정) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "정채움",
+    "url": "https://jungchaeum.com/"
+  }
+  </script>
+
+  <!-- 파비콘 (브라우저 탭 및 검색 결과 아이콘) -->
+  <link rel="icon" type="image/png" href="favicon.png?v=2" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="favicon.png?v=2" />
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20261013_12" />
 </head>
 
 <body>
@@ -33,7 +51,7 @@
     <!-- 상단 헤더 (흰 배경 위 로고 및 우측 두 개 줄 메뉴 버튼) -->
     <header class="top-header">
       <a href="#heroSection" class="header-logo-link" aria-label="정채움 메인으로 이동">
-        <img src="대지 2 로고.png" alt="정채움 상단 로고" class="header-logo" />
+        <img src="대지 2 로고.png" alt="정채움 로고" class="header-logo" />
       </a>
       <nav class="header-nav" id="headerNav" aria-label="메인 섹션 네비게이션">
         <ul class="header-nav-list">
@@ -69,13 +87,22 @@
             <!-- 슬라이드 트랙 -->
             <div class="slider-track" id="sliderTrack">
               <div class="slide active">
-                <img src="히어로섹션1.png" alt="정채움 메인 비주얼 1" class="hero-bg" />
+                <picture>
+                  <source media="(max-width: 768px)" srcset="모바일hero1.png" />
+                  <img src="히어로섹션1.png" alt="정채움 메인 비주얼 1" class="hero-bg" />
+                </picture>
               </div>
               <div class="slide">
-                <img src="히어로섹션2.png" alt="정채움 메인 비주얼 2" class="hero-bg" />
+                <picture>
+                  <source media="(max-width: 768px)" srcset="모바일hero2.png" />
+                  <img src="히어로섹션2.png" alt="정채움 메인 비주얼 2" class="hero-bg" />
+                </picture>
               </div>
               <div class="slide">
-                <img src="히어로섹션3.png" alt="정채움 메인 비주얼 3" class="hero-bg" />
+                <picture>
+                  <source media="(max-width: 768px)" srcset="모바일hero3.png" />
+                  <img src="히어로섹션3.png" alt="정채움 메인 비주얼 3" class="hero-bg" />
+                </picture>
               </div>
             </div>
           </div>
@@ -133,7 +160,7 @@
                   더 좋은 것을 만들고, 더 좋은 한 끼를 전하고 싶은 마음. 소중한 사람의 식탁에 믿을 수 있는 음식을 채우고 싶은 마음. 그 마음에서 정채움이 시작되었습니다.
                 </p>
                 <p class="ceo-description">
-                  17년간의 롯데호텔 실무 경험과 박사 과정의 전문성, 식품가공 명장의 기술력을 연구개발과 표준화된 공정으로 발전시켜 누구나 믿고 선택할 수 있는 맛의 기준을 만들어갑니다.
+                  17년간의 호텔조리장 실무 경험과 박사 과정의 전문성, 식품가공 명장의 기술력을 연구개발과 표준화된 공정으로 발전시켜 누구나 믿고 선택할 수 있는 맛의 기준을 만들어갑니다.
                 </p>
               </div>
             </div>
@@ -142,7 +169,7 @@
             <div class="ceo-stats-row">
               <div class="ceo-stat-card">
                 <span class="ceo-stat-num">17년</span>
-                <span class="ceo-stat-text">롯데호텔 실무 경험</span>
+                <span class="ceo-stat-text">호텔조리장 실무 경험</span>
               </div>
               <div class="ceo-stat-card">
                 <span class="ceo-stat-num">225호</span>
@@ -371,9 +398,9 @@
           </div>
         </div>
 
-        <!-- 모바일 전용: 2단계 체류용 전략 영역 (PC 데스크톱에서는 display: none) -->
-        <div class="vision-mobile-strategy-container" id="visionMobileStrategyContainer" aria-hidden="true">
-          <!-- 네모 모듈 6개 (PC 버전과 동일한 동적 모션) -->
+        <!-- 모바일 전용: 전략 영역 -->
+        <div class="vision-mobile-strategy-container" id="visionMobileStrategyContainer">
+          <!-- 네모 모듈 6개 -->
           <div class="motion-boxes-container step-1" id="visionMobileBoxStage">
             <span class="motion-box b1"></span>
             <span class="motion-box b2"></span>
@@ -383,7 +410,6 @@
             <span class="motion-box b6"></span>
           </div>
 
-          <!-- 전략 텍스트 스테이지 (유통의 신뢰 -> 스마트 기술 -> 상생 유통 순차 전환) -->
           <div class="strategy-text-stage" id="visionMobileTextStage">
             <!-- Item 1: Trust in Distribution -->
             <div class="strategy-item active" data-step="1">
@@ -392,32 +418,29 @@
                 <p class="strategy-kr-subtitle">유통의 신뢰</p>
               </div>
               <div class="strategy-right">
-                <p class="strategy-desc">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해</p>
-                <p class="strategy-desc">신선함을 제공합니다.</p>
+                <p class="strategy-desc">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해<br />신선함을 제공합니다.</p>
               </div>
             </div>
 
             <!-- Item 2: Smart Technology -->
-            <div class="strategy-item" data-step="2">
+            <div class="strategy-item active" data-step="2">
               <div class="strategy-left">
                 <h3 class="strategy-en-title">Smart-Technology</h3>
                 <p class="strategy-kr-subtitle">스마트 기술</p>
               </div>
               <div class="strategy-right">
-                <p class="strategy-desc">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로</p>
-                <p class="strategy-desc">위생과 효율을 극대화하며, 더 안전하고 스마트한 식품 유통을 실현합니다.</p>
+                <p class="strategy-desc">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로<br />위생과 효율을 극대화하며 더 안전하고 스마트한 식품 유통을 실현합니다.</p>
               </div>
             </div>
 
             <!-- Item 3: Shared-Growth Distribution -->
-            <div class="strategy-item" data-step="3">
+            <div class="strategy-item active" data-step="3">
               <div class="strategy-left">
                 <h3 class="strategy-en-title">Shared-Growth Distribution</h3>
                 <p class="strategy-kr-subtitle">상생 유통</p>
               </div>
               <div class="strategy-right">
-                <p class="strategy-desc">협력사와 동반 성장을 위해 숙련 기술을 전수하고</p>
-                <p class="strategy-desc">사회적 책임을 다하는 경영을 실천합니다.</p>
+                <p class="strategy-desc">협력사와 동반 성장을 위해 숙련 기술을 전수하고<br />사회적 책임을 다하는 경영을 실천합니다.</p>
               </div>
             </div>
           </div>
@@ -442,7 +465,7 @@
             <span class="motion-box b6"></span>
           </div>
 
-          <!-- 하단: 기업 전략 텍스트 영역 (좌: 영문 크게 + 한글 부제목 / 우: 한글 설명) -->
+          <!-- 하단: 기업 전략 텍스트 영역 (유통의 신뢰 & 스마트 기술 & 상생 유통) -->
           <div class="strategy-text-stage" id="strategyTextStage">
             <!-- Item 1: Trust in Distribution -->
             <div class="strategy-item active" data-step="step-1">
@@ -456,16 +479,13 @@
               </div>
               <div class="strategy-right">
                 <div class="mask-box">
-                  <p class="strategy-desc mask-line">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해</p>
-                </div>
-                <div class="mask-box">
-                  <p class="strategy-desc mask-line">신선함을 제공합니다.</p>
+                  <p class="strategy-desc mask-line">투명한 원재료 소싱과 콜드체인 전국 유통망을 통해 신선함을 제공합니다.</p>
                 </div>
               </div>
             </div>
 
             <!-- Item 2: Smart Technology -->
-            <div class="strategy-item" data-step="step-2">
+            <div class="strategy-item active" data-step="step-2">
               <div class="strategy-left">
                 <div class="mask-box">
                   <h3 class="strategy-en-title mask-line">Smart-Technology</h3>
@@ -476,16 +496,14 @@
               </div>
               <div class="strategy-right">
                 <div class="mask-box">
-                  <p class="strategy-desc mask-line">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로</p>
-                </div>
-                <div class="mask-box">
-                  <p class="strategy-desc mask-line">위생과 효율을 극대화하며, 더 안전하고 스마트한 식품 유통을 실현합니다.</p>
+                  <p class="strategy-desc mask-line">푸드테크 기반의 제조 공정과 유통 지능화를 바탕으로 위생과 효율을 극대화하며, 더 안전하고 스마트한 식품 유통을
+                    실현합니다.</p>
                 </div>
               </div>
             </div>
 
             <!-- Item 3: Shared-Growth Distribution -->
-            <div class="strategy-item" data-step="step-3">
+            <div class="strategy-item active" data-step="step-3">
               <div class="strategy-left">
                 <div class="mask-box">
                   <h3 class="strategy-en-title mask-line">Shared-Growth Distribution</h3>
@@ -496,10 +514,7 @@
               </div>
               <div class="strategy-right">
                 <div class="mask-box">
-                  <p class="strategy-desc mask-line">협력사와 동반 성장을 위해 숙련 기술을 전수하고</p>
-                </div>
-                <div class="mask-box">
-                  <p class="strategy-desc mask-line">사회적 책임을 다하는 경영을 실천합니다.</p>
+                  <p class="strategy-desc mask-line">협력사와 동반 성장을 위해 숙련 기술을 전수하고 사회적 책임을 다하는 경영을 실천합니다.</p>
                 </div>
               </div>
             </div>
@@ -671,7 +686,7 @@
           <!-- 상단 3개 주요 인증 카드 -->
           <div class="safety-top-cards scroll-fade">
             <div class="safety-stat-card">
-              <div class="stat-highlight"><span class="counter-number" id="safetyIsoCounter" data-target="4">0</span>종
+              <div class="stat-highlight"><span class="counter-number" id="safetyIsoCounter">4</span>종
               </div>
               <div class="stat-label">통합 ISO 인증</div>
             </div>
@@ -1111,7 +1126,7 @@
               <div class="sales-stat-card primary-card scroll-fade">
                 <span class="sales-card-label">2025 전체 매출</span>
                 <div class="sales-card-number">
-                  <span class="sales-counter" id="counterTotalSales" data-target="147.3" data-decimals="1">0</span>억
+                  <span class="sales-counter" id="counterTotalSales" data-target="147.3" data-decimals="1">147.3</span>억
                 </div>
                 <div class="sales-card-badge">
                   <span class="badge-arrow">▲</span> 29.87%(전년대비)
@@ -1122,7 +1137,7 @@
               <div class="sales-stat-card scroll-fade">
                 <span class="sales-card-label">2025 R&D 사업 매출</span>
                 <div class="sales-card-number">
-                  <span class="sales-counter" id="counterRdSales" data-target="4.4" data-decimals="1">0</span>억
+                  <span class="sales-counter" id="counterRdSales" data-target="4.4" data-decimals="1">4.4</span>억
                 </div>
                 <div class="sales-card-badge">
                   <span class="badge-arrow">▲</span> R&D 적용 제품 출시
@@ -1133,7 +1148,7 @@
               <div class="sales-stat-card scroll-fade">
                 <span class="sales-card-label">양념육 누적 매출</span>
                 <div class="sales-card-number">
-                  <span class="sales-counter" id="counterMeatSales" data-target="50" data-decimals="0">0</span>억
+                  <span class="sales-counter" id="counterMeatSales" data-target="50" data-decimals="0">50</span>억
                 </div>
                 <div class="sales-card-badge">
                   <span class="badge-arrow">▲</span> 4년간 안정 유지
@@ -1219,7 +1234,7 @@
       </svg>
     </button>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20261013_12"></script>
 </body>
 
 </html>

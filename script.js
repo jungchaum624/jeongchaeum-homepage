@@ -268,178 +268,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================================
-  // 안전경영 섹션 ISO 4종 카운트 & 스크롤 체류 락 제어
-  // (4까지 숫자가 모두 올라가야 그 다음으로 스크롤 진행)
+  // 안전경영 섹션: 숫자 카운트 및 스크롤 락 완전 해제 (정적 4 노출)
   // =========================================
-  const safetySection = document.getElementById("safetySection");
   const safetyCounterEl = document.getElementById("safetyIsoCounter");
-
-  let isoCount = 0;
-  let isIsoFinished = false;
-  let isIsoCounting = false;
-  let isoTimer = null;
-  let lastWheelStepTime = 0;
-  let touchStartY = 0;
-
-  function stepIsoCount() {
-    if (isIsoFinished || !safetyCounterEl) return;
-    if (isoCount < 4) {
-      isoCount++;
-      safetyCounterEl.textContent = isoCount;
-      safetyCounterEl.classList.remove("bump");
-      void safetyCounterEl.offsetWidth; // 리플로우 트리거로 펄스 애니메이션 재생
-      safetyCounterEl.classList.add("bump");
-      setTimeout(() => {
-        if (safetyCounterEl) safetyCounterEl.classList.remove("bump");
-      }, 180);
-
-      if (isoCount >= 4) {
-        finishIsoCounter();
-      }
-    }
+  if (safetyCounterEl) {
+    safetyCounterEl.textContent = "4";
+    safetyCounterEl.classList.add("finished");
   }
 
-  function finishIsoCounter() {
-    if (isIsoFinished) return;
-    isIsoFinished = true;
-    if (isoTimer) {
-      clearInterval(isoTimer);
-      isoTimer = null;
-    }
-    if (safetyCounterEl) {
-      safetyCounterEl.textContent = "4";
-      safetyCounterEl.classList.add("finished");
-    }
-  }
-
-  function startAutoIsoCounter() {
-    if (isIsoCounting || isIsoFinished) return;
-    isIsoCounting = true;
-    if (isoCount === 0) {
-      stepIsoCount(); // 즉시 1 카운트
-    }
-    if (isoTimer) clearInterval(isoTimer);
-    isoTimer = setInterval(() => {
-      if (!isIsoFinished && isoCount < 4) {
-        stepIsoCount();
-      } else {
-        finishIsoCounter();
-      }
-    }, 280); // 약 1초 동안 0 -> 1 -> 2 -> 3 -> 4 경쾌하게 완료
-  }
-
-  function isSafetyLocked() {
-    if (isProgrammaticScrolling || isIsoFinished || !safetySection) return false;
-    const rect = safetySection.getBoundingClientRect();
-    // 안전경영 섹션이 화면 상단 고정 위치(top 120px)에 도달하고 아직 화면에 머무는 중일 때
-    return rect.top <= 125 && rect.bottom >= window.innerHeight * 0.45;
-  }
-
-  function handleDownScrollAttempt(e) {
-    if (isSafetyLocked()) {
-      if (e.cancelable) e.preventDefault();
-      startAutoIsoCounter();
-
-      const now = Date.now();
-      if (now - lastWheelStepTime > 100) {
-        lastWheelStepTime = now;
-        stepIsoCount();
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // 1. 마우스 휠 이벤트 제어 (카운트 4 완료 전 아래 스크롤 홀드 & 휠 입력 시 카운트 가속)
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      if (!isProgrammaticScrolling && e.deltaY > 0) {
-        // 아래로 스크롤 시도 시 4 완료 전까지 락
-        handleDownScrollAttempt(e);
-      }
-    },
-    { passive: false }
-  );
-
-  // 2. 모바일 터치 이벤트 제어
-  window.addEventListener(
-    "touchstart",
-    (e) => {
-      if (e.touches && e.touches.length > 0) {
-        touchStartY = e.touches[0].clientY;
-      }
-    },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "touchmove",
-    (e) => {
-      if (isProgrammaticScrolling || !e.touches || e.touches.length === 0) return;
-      const currentY = e.touches[0].clientY;
-      const diffY = touchStartY - currentY; // diffY > 0 이면 아래로 스크롤 의도
-      if (diffY > 10) {
-        if (handleDownScrollAttempt(e)) {
-          touchStartY = currentY;
-        }
-      }
-    },
-    { passive: false }
-  );
-
-  // 3. 키보드 하단 방향키 제어
-  window.addEventListener(
-    "keydown",
-    (e) => {
-      if (["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key)) {
-        if (isSafetyLocked()) {
-          if (e.cancelable) e.preventDefault();
-          startAutoIsoCounter();
-          stepIsoCount();
-        }
-      }
-    },
-    { passive: false }
-  );
-
-  // 4. 스크롤 위치 감시 (섹션 진입 시 자동 카운트 시작, 지나침 방지 및 상단 복귀 시 리셋)
-  function checkSafetyScroll() {
-    if (!safetySection || isProgrammaticScrolling) return;
-    const rect = safetySection.getBoundingClientRect();
-    const sectionAbsTop = rect.top + window.scrollY;
-    const pinScrollY = sectionAbsTop - 120;
-
-    // 섹션이 화면에 들어오면 자동 카운트 가동
-    if (rect.top <= 140 && rect.bottom >= window.innerHeight * 0.4) {
-      if (!isIsoCounting && !isIsoFinished) {
-        startAutoIsoCounter();
-      }
-      // 4가 채워지기 전에는 스크롤이 다음 섹션으로 새어 나가지 않도록 정위치 유지 (프로그래밍 스크롤 중이 아닐 때만)
-      if (!isProgrammaticScrolling && !isIsoFinished && window.scrollY > pinScrollY + 2) {
-        window.scrollTo({ top: pinScrollY, behavior: "instant" });
-      }
-    }
-
-    // 위로 한참 올라갔을 때 (타임라인 쪽으로 복귀) 상태 리셋
-    if (rect.top > window.innerHeight * 0.75) {
-      if (isIsoFinished || isoCount > 0) {
-        isIsoFinished = false;
-        isIsoCounting = false;
-        isoCount = 0;
-        if (safetyCounterEl) {
-          safetyCounterEl.textContent = "0";
-          safetyCounterEl.classList.remove("finished", "bump");
-        }
-        if (isoTimer) {
-          clearInterval(isoTimer);
-          isoTimer = null;
-        }
-      }
-    }
-  }
-
-  window.addEventListener("scroll", checkSafetyScroll, { passive: true });
+  function finishIsoCounter() {}
 
   // 스크롤 감지 Lazy Loading (공통 페이드인 애니메이션)
   const scrollElements = document.querySelectorAll(".scroll-fade, .scroll-slide-left, .scroll-slide-right");
@@ -1147,6 +984,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let salesAnimated = false;
     let animFrameId = null;
 
+    const isMobile = () => window.innerWidth <= 768;
+
+    const setStaticSalesNumbers = () => {
+      const counters = salesSection.querySelectorAll(".sales-counter");
+      counters.forEach((counter) => {
+        const target = counter.getAttribute("data-target");
+        if (target) counter.textContent = target;
+      });
+      const chartCard = salesSection.querySelector(".sales-chart-card");
+      if (chartCard) {
+        chartCard.classList.add("animated");
+      }
+      salesSection.querySelectorAll(".scroll-fade").forEach((el) => {
+        el.classList.add("visible");
+      });
+    };
+
+    // 모바일 초기 진입 시 즉시 정적 수치 고정 (어트랙션 제거)
+    if (isMobile()) {
+      setStaticSalesNumbers();
+    }
+
     const animateSalesNumbers = () => {
       const counters = salesSection.querySelectorAll(".sales-counter");
       const duration = 1600; // ms
@@ -1183,6 +1042,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const triggerSalesAnimation = () => {
+      if (isMobile()) {
+        setStaticSalesNumbers();
+        return;
+      }
       if (salesAnimated) return;
       salesAnimated = true;
 
@@ -1202,6 +1065,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const resetSalesAnimation = () => {
+      if (isMobile()) return;
       if (!salesAnimated) return;
       salesAnimated = false;
       if (animFrameId) {
@@ -1219,6 +1083,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const checkSalesSticky = () => {
+      if (isMobile()) {
+        setStaticSalesNumbers();
+        return;
+      }
       const rect = salesSection.getBoundingClientRect();
 
       // 스크롤 체류(Sticky) 효과가 시작되는 시점:
